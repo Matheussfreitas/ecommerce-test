@@ -84,4 +84,27 @@ public class CompraService
 		// To-Do
 		return BigDecimal.ZERO;
 	}
+
+	public BigDecimal calcularFretePorPeso(BigDecimal peso)
+	{
+		BigDecimal valorPorKG = BigDecimal.ZERO;
+		BigDecimal taxaMinima = BigDecimal.valueOf(12.0);
+
+		if (peso.compareTo(peso) >= 0 && peso.compareTo(peso) <= 5) {
+			return valorPorKG.multiply(peso);
+		}
+		else if (peso.compareTo(peso) > 5 && peso.compareTo(peso) <= 10) {
+			valorPorKG = BigDecimal.valueOf(2.0);
+			return valorPorKG.multiply(peso).add(taxaMinima);
+		}
+		else if (peso.compareTo(peso) > 10 && peso.compareTo(peso) <= 50) {
+			valorPorKG = BigDecimal.valueOf(4.0);
+			return valorPorKG.multiply(peso).add(taxaMinima);
+		}
+		else if (peso.compareTo(peso) > 50) {
+			valorPorKG = BigDecimal.valueOf(7.0);
+			return valorPorKG.multiply(peso).add(taxaMinima);
+		}
+		return null;
+	}
 }
