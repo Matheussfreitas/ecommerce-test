@@ -107,4 +107,12 @@ public class CompraService
 		}
 		return null;
 	}
+
+	public BigDecimal calcularTaxaProdutoFragil(CarrinhoDeCompras carrinho) {
+	  BigDecimal taxaFragil = carrinho.getItens().stream()
+			.filter(item -> item.getProduto().isFragil())
+			.map(item -> BigDecimal.valueOf(5.0).multiply(BigDecimal.valueOf(item.getQuantidade())))
+			.reduce(BigDecimal.ZERO, BigDecimal::add);
+	  return taxaFragil;
+	}
 }
