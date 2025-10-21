@@ -87,13 +87,17 @@ public class CompraService {
 		BigDecimal descontoMultiplosItens = calcularDescontoPorMultiplosItensMesmoTipo(carrinho);
 
 		// Aplica o desconto ao subtotal
-		BigDecimal subtotalComDesconto = subtotalItens.subtract(descontoMultiplosItens);
+		BigDecimal subtotalComDescontoMultiplosItens = subtotalItens.subtract(descontoMultiplosItens);
+
+		BigDecimal descontoValorCarrinho = calcularDescontoPorValorCarrinho(subtotalComDescontoMultiplosItens);
+
+		BigDecimal subtotalComDescontoFinal = subtotalComDescontoMultiplosItens.subtract(descontoValorCarrinho);
 
 		// Calcula o frete total
 		BigDecimal freteTotal = calcularFreteTotal(carrinho);
 
 		// Calcula o custo total (subtotal com desconto + frete)
-		BigDecimal custoTotal = subtotalComDesconto.add(freteTotal);
+		BigDecimal custoTotal = subtotalComDescontoFinal.add(freteTotal);
 
 		// Retorna o custo total arredondado para 2 casas decimais
 		return custoTotal.setScale(2, RoundingMode.HALF_UP);
@@ -139,6 +143,21 @@ public class CompraService {
 		return descontoTotal;
 	}
 
+	public BigDecimal calcularDescontoPorValorCarrinho(BigDecimal subtotal) {
+    BigDecimal MIL_REAIS = BigDecimal.valueOf(1000.0);
+    BigDecimal QUINHENTOS_REAIS = BigDecimal.valueOf(500.0);
+    
+    BigDecimal desconto = BigDecimal.ZERO;
+    
+    if (subtotal.compareTo(MIL_REAIS) > 0) {
+        desconto = subtotal.multiply(BigDecimal.valueOf(0.20));
+    } else if (subtotal.compareTo(QUINHENTOS_REAIS) > 0) {
+        desconto = subtotal.multiply(BigDecimal.valueOf(0.10));
+    }
+    
+    return desconto;
+}
+
 	public BigDecimal calcularPesoTributavelTotal(ItemCompra item) {
 		BigDecimal pesoFisico = item.getProduto().getPesoFisico();
 		BigDecimal comprimento = item.getProduto().getComprimento();
@@ -178,22 +197,27 @@ public class CompraService {
 	}
 
 	public BigDecimal calcularFretePorPeso(BigDecimal pesoTotal) {
-		BigDecimal valorPorKG = BigDecimal.ZERO;
+		BigDecimal CINCO_KG = BigDecimal.valueOf(5);
+    BigDecimal DEZ_KG = BigDecimal.valueOf(10);
+    BigDecimal CINQUENTA_KG = BigDecimal.valueOf(50);
+
 		BigDecimal taxaMinima = BigDecimal.valueOf(12.0);
 
-		if (pesoTotal.compareTo(pesoTotal) >= 0 && pesoTotal.compareTo(pesoTotal) <= 5) {
-			return valorPorKG.multiply(pesoTotal);
-		} else if (pesoTotal.compareTo(pesoTotal) > 5 && pesoTotal.compareTo(pesoTotal) <= 10) {
-			valorPorKG = BigDecimal.valueOf(2.0);
+		if (pesoTotal.compareTo(CINCO_KG) <= 0) {
+			return BigDecimal.ZERO;
+		} 
+		else if (pesoTotal.compareTo(DEZ_KG) <= 0) {
+			BigDecimal valorPorKG = BigDecimal.valueOf(2.0);
 			return valorPorKG.multiply(pesoTotal).add(taxaMinima);
-		} else if (pesoTotal.compareTo(pesoTotal) > 10 && pesoTotal.compareTo(pesoTotal) <= 50) {
-			valorPorKG = BigDecimal.valueOf(4.0);
+		} 
+		else if (pesoTotal.compareTo(CINQUENTA_KG) <= 0) {
+			BigDecimal valorPorKG = BigDecimal.valueOf(4.0);
 			return valorPorKG.multiply(pesoTotal).add(taxaMinima);
-		} else if (pesoTotal.compareTo(pesoTotal) > 50) {
-			valorPorKG = BigDecimal.valueOf(7.0);
+		} 
+		else {
+			BigDecimal valorPorKG = BigDecimal.valueOf(7.0);
 			return valorPorKG.multiply(pesoTotal).add(taxaMinima);
 		}
-		return null;
 	}
 
 	public BigDecimal calcularTaxaProdutoFragil(CarrinhoDeCompras carrinho) {
