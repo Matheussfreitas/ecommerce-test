@@ -13,6 +13,7 @@ import ecommerce.dto.EstoqueBaixaDTO;
 import ecommerce.dto.PagamentoDTO;
 import ecommerce.entity.CarrinhoDeCompras;
 import ecommerce.entity.Cliente;
+import ecommerce.entity.ItemCompra;
 import ecommerce.entity.Regiao;
 import ecommerce.entity.TipoCliente;
 import ecommerce.external.IEstoqueExternal;
@@ -20,8 +21,7 @@ import ecommerce.external.IPagamentoExternal;
 import jakarta.transaction.Transactional;
 
 @Service
-public class CompraService
-{
+public class CompraService {
 
 	private final CarrinhoDeComprasService carrinhoService;
 	private final ClienteService clienteService;
@@ -31,8 +31,7 @@ public class CompraService
 
 	@Autowired
 	public CompraService(CarrinhoDeComprasService carrinhoService, ClienteService clienteService,
-			IEstoqueExternal estoqueExternal, IPagamentoExternal pagamentoExternal)
-	{
+			IEstoqueExternal estoqueExternal, IPagamentoExternal pagamentoExternal) {
 		this.carrinhoService = carrinhoService;
 		this.clienteService = clienteService;
 
@@ -41,8 +40,7 @@ public class CompraService
 	}
 
 	@Transactional
-	public CompraDTO finalizarCompra(Long carrinhoId, Long clienteId)
-	{
+	public CompraDTO finalizarCompra(Long carrinhoId, Long clienteId) {
 		Cliente cliente = clienteService.buscarPorId(clienteId);
 		CarrinhoDeCompras carrinho = carrinhoService.buscarPorCarrinhoIdEClienteId(carrinhoId, cliente);
 
@@ -52,8 +50,7 @@ public class CompraService
 
 		DisponibilidadeDTO disponibilidade = estoqueExternal.verificarDisponibilidade(produtosIds, produtosQtds);
 
-		if (!disponibilidade.disponivel())
-		{
+		if (!disponibilidade.disponivel()) {
 			throw new IllegalStateException("Itens fora de estoque.");
 		}
 
@@ -61,15 +58,13 @@ public class CompraService
 
 		PagamentoDTO pagamento = pagamentoExternal.autorizarPagamento(cliente.getId(), custoTotal.doubleValue());
 
-		if (!pagamento.autorizado())
-		{
+		if (!pagamento.autorizado()) {
 			throw new IllegalStateException("Pagamento não autorizado.");
 		}
 
 		EstoqueBaixaDTO baixaDTO = estoqueExternal.darBaixa(produtosIds, produtosQtds);
 
-		if (!baixaDTO.sucesso())
-		{
+		if (!baixaDTO.sucesso()) {
 			pagamentoExternal.cancelarPagamento(cliente.getId(), pagamento.transacaoId());
 			throw new IllegalStateException("Erro ao dar baixa no estoque.");
 		}
@@ -77,42 +72,102 @@ public class CompraService
 		CompraDTO compraDTO = new CompraDTO(true, pagamento.transacaoId(), "Compra finalizada com sucesso.");
 
 		return compraDTO;
-	} 
+	}
 
-	public BigDecimal calcularCustoTotal(CarrinhoDeCompras carrinho, Regiao regiao, TipoCliente tipoCliente)
-	{
+	public BigDecimal calcularCustoTotal(CarrinhoDeCompras carrinho, Regiao regiao, TipoCliente tipoCliente) {
 		// To-Do
 		return BigDecimal.ZERO;
 	}
 
-	public BigDecimal calcularFretePorPeso(BigDecimal peso)
-	{
+	public BigDecimal calcularFretePorRegiao(BigDecimal freteTotal, Regiao regiao) {
+		BigDecimal multiplicador = BigDecimal.ZERO;
+
+		switch (regiao) {
+			case SUDESTE:
+				multiplicador = BigDecimal.valueOf(1.00);
+				break;
+			case SUL:
+				multiplicador = BigDecimal.valueOf(1.05);
+				break;
+			case NORDESTE:
+				multiplicador = BigDecimal.valueOf(1.10);
+				break;
+			case CENTRO_OESTE:
+				multiplicador = BigDecimal.valueOf(1.20);
+				break;
+			case NORTE:
+				multiplicador = BigDecimal.valueOf(1.30);
+				break;
+		}
+
+		return freteTotal.multiply(multiplicador);
+	}
+
+	public BigDecimal calcularFretePorPeso(BigDecimal pesoTotal) {
 		BigDecimal valorPorKG = BigDecimal.ZERO;
 		BigDecimal taxaMinima = BigDecimal.valueOf(12.0);
 
-		if (peso.compareTo(peso) >= 0 && peso.compareTo(peso) <= 5) {
-			return valorPorKG.multiply(peso);
-		}
-		else if (peso.compareTo(peso) > 5 && peso.compareTo(peso) <= 10) {
+		if (pesoTotal.compareTo(pesoTotal) >= 0 && pesoTotal.compareTo(pesoTotal) <= 5) {
+			return valorPorKG.multiply(pesoTotal);
+		} else if (pesoTotal.compareTo(pesoTotal) > 5 && pesoTotal.compareTo(pesoTotal) <= 10) {
 			valorPorKG = BigDecimal.valueOf(2.0);
-			return valorPorKG.multiply(peso).add(taxaMinima);
-		}
-		else if (peso.compareTo(peso) > 10 && peso.compareTo(peso) <= 50) {
+			return valorPorKG.multiply(pesoTotal).add(taxaMinima);
+		} else if (pesoTotal.compareTo(pesoTotal) > 10 && pesoTotal.compareTo(pesoTotal) <= 50) {
 			valorPorKG = BigDecimal.valueOf(4.0);
-			return valorPorKG.multiply(peso).add(taxaMinima);
-		}
-		else if (peso.compareTo(peso) > 50) {
+			return valorPorKG.multiply(pesoTotal).add(taxaMinima);
+		} else if (pesoTotal.compareTo(pesoTotal) > 50) {
 			valorPorKG = BigDecimal.valueOf(7.0);
-			return valorPorKG.multiply(peso).add(taxaMinima);
+			return valorPorKG.multiply(pesoTotal).add(taxaMinima);
 		}
 		return null;
 	}
 
 	public BigDecimal calcularTaxaProdutoFragil(CarrinhoDeCompras carrinho) {
-	  BigDecimal taxaFragil = carrinho.getItens().stream()
-			.filter(item -> item.getProduto().isFragil())
-			.map(item -> BigDecimal.valueOf(5.0).multiply(BigDecimal.valueOf(item.getQuantidade())))
-			.reduce(BigDecimal.ZERO, BigDecimal::add);
-	  return taxaFragil;
+		BigDecimal taxaFragil = carrinho.getItens().stream()
+				.filter(item -> item.getProduto().isFragil())
+				.map(item -> BigDecimal.valueOf(5.0).multiply(BigDecimal.valueOf(item.getQuantidade())))
+				.reduce(BigDecimal.ZERO, BigDecimal::add);
+		return taxaFragil;
+	}
+
+	public BigDecimal aplicarDescontoPorTipoCliente(BigDecimal freteTotal, TipoCliente tipoCliente) {
+		BigDecimal desconto = BigDecimal.ZERO;
+
+		switch (tipoCliente) {
+			case BRONZE:
+				desconto = BigDecimal.ZERO;
+				break;
+			case PRATA:
+				desconto = freteTotal.multiply(BigDecimal.valueOf(0.5));
+				break;
+			case OURO:
+				desconto = freteTotal.multiply(BigDecimal.valueOf(1.0));
+				break;
+		}
+
+		return freteTotal.subtract(desconto);
+	}
+
+	public BigDecimal calcularFreteTotal(CarrinhoDeCompras carrinho) {
+		BigDecimal pesoTotal = BigDecimal.ZERO;
+
+		for (ItemCompra item : carrinho.getItens()) {
+			BigDecimal pesoItem = item.getProduto().getPesoFisico()
+				.multiply(BigDecimal.valueOf(item.getQuantidade()));
+			pesoTotal = pesoTotal.add(pesoItem);
+		}
+
+		BigDecimal fretePorPeso = calcularFretePorPeso(pesoTotal);
+
+		BigDecimal taxaProdutoFragil = calcularTaxaProdutoFragil(carrinho);
+
+		BigDecimal freteTotal = fretePorPeso.add(taxaProdutoFragil);
+
+		BigDecimal freteComTaxaPorRegiao = calcularFretePorRegiao(freteTotal, carrinho.getCliente().getRegiao());
+
+		BigDecimal freteFinal = aplicarDescontoPorTipoCliente(freteComTaxaPorRegiao,
+				carrinho.getCliente().getTipo());
+
+		return freteFinal;
 	}
 }
