@@ -79,6 +79,20 @@ public class CompraService {
 		return BigDecimal.ZERO;
 	}
 
+	public BigDecimal calcularPesoTributavelTotal(ItemCompra item) {
+		BigDecimal pesoFisico = item.getProduto().getPesoFisico();
+		BigDecimal comprimento = item.getProduto().getComprimento();
+		BigDecimal largura = item.getProduto().getLargura();
+		BigDecimal altura = item.getProduto().getAltura();
+
+		BigDecimal pesoVolumetrico = (comprimento.multiply(largura).multiply(altura))
+				.divide(BigDecimal.valueOf(6000));
+
+		BigDecimal pesoTributavel = pesoFisico.max(pesoVolumetrico).multiply(BigDecimal.valueOf(item.getQuantidade()));
+
+		return pesoTributavel;
+	}
+
 	public BigDecimal calcularFretePorRegiao(BigDecimal freteTotal, Regiao regiao) {
 		BigDecimal multiplicador = BigDecimal.ZERO;
 
@@ -149,13 +163,9 @@ public class CompraService {
 	}
 
 	public BigDecimal calcularFreteTotal(CarrinhoDeCompras carrinho) {
-		BigDecimal pesoTotal = BigDecimal.ZERO;
-
-		for (ItemCompra item : carrinho.getItens()) {
-			BigDecimal pesoItem = item.getProduto().getPesoFisico()
-				.multiply(BigDecimal.valueOf(item.getQuantidade()));
-			pesoTotal = pesoTotal.add(pesoItem);
-		}
+		BigDecimal pesoTotal = carrinho.getItens().stream()
+				.map(this::calcularPesoTributavelTotal)
+				.reduce(BigDecimal.ZERO, BigDecimal::add);
 
 		BigDecimal fretePorPeso = calcularFretePorPeso(pesoTotal);
 
