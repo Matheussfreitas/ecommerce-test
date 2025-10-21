@@ -1,6 +1,7 @@
 package ecommerce.service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -91,8 +92,11 @@ public class CompraService {
 		// Calcula o frete total
 		BigDecimal freteTotal = calcularFreteTotal(carrinho);
 
-		// Retorna o custo total (subtotal com desconto + frete)
-		return subtotalComDesconto.add(freteTotal);
+		// Calcula o custo total (subtotal com desconto + frete)
+		BigDecimal custoTotal = subtotalComDesconto.add(freteTotal);
+
+		// Retorna o custo total arredondado para 2 casas decimais
+		return custoTotal.setScale(2, RoundingMode.HALF_UP);
 	}
 
 	public BigDecimal calcularDescontoPorMultiplosItensMesmoTipo(CarrinhoDeCompras carrinho) {
