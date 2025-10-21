@@ -2,6 +2,7 @@ package ecommerce.service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import ecommerce.entity.Cliente;
 import ecommerce.entity.ItemCompra;
 import ecommerce.entity.Regiao;
 import ecommerce.entity.TipoCliente;
+import ecommerce.entity.TipoProduto;
 import ecommerce.external.IEstoqueExternal;
 import ecommerce.external.IPagamentoExternal;
 import jakarta.transaction.Transactional;
@@ -75,8 +77,62 @@ public class CompraService {
 	}
 
 	public BigDecimal calcularCustoTotal(CarrinhoDeCompras carrinho, Regiao regiao, TipoCliente tipoCliente) {
-		// To-Do
-		return BigDecimal.ZERO;
+		// Calcula o subtotal dos itens
+		BigDecimal subtotalItens = carrinho.getItens().stream()
+				.map(item -> item.getProduto().getPreco().multiply(BigDecimal.valueOf(item.getQuantidade())))
+				.reduce(BigDecimal.ZERO, BigDecimal::add);
+
+		// Calcula o desconto por múltiplos itens do mesmo tipo
+		BigDecimal descontoMultiplosItens = calcularDescontoPorMultiplosItensMesmoTipo(carrinho);
+
+		// Aplica o desconto ao subtotal
+		BigDecimal subtotalComDesconto = subtotalItens.subtract(descontoMultiplosItens);
+
+		// Calcula o frete total
+		BigDecimal freteTotal = calcularFreteTotal(carrinho);
+
+		// Retorna o custo total (subtotal com desconto + frete)
+		return subtotalComDesconto.add(freteTotal);
+	}
+
+	public BigDecimal calcularDescontoPorMultiplosItensMesmoTipo(CarrinhoDeCompras carrinho) {
+		// Agrupa os itens por tipo de produto e soma as quantidades
+		Map<TipoProduto, Long> quantidadePorTipo = carrinho.getItens().stream()
+				.collect(Collectors.groupingBy(
+						item -> item.getProduto().getTipo(),
+						Collectors.summingLong(ItemCompra::getQuantidade)));
+
+		BigDecimal descontoTotal = BigDecimal.ZERO;
+
+		// Para cada tipo de produto, calcula o desconto baseado na quantidade total
+		for (Map.Entry<TipoProduto, Long> entrada : quantidadePorTipo.entrySet()) {
+			TipoProduto tipo = entrada.getKey();
+			Long quantidadeTotal = entrada.getValue();
+
+			// Determina a porcentagem de desconto baseado na quantidade
+			BigDecimal percentualDesconto = BigDecimal.ZERO;
+			if (quantidadeTotal >= 8) {
+				percentualDesconto = BigDecimal.valueOf(0.15); // 15%
+			} else if (quantidadeTotal >= 5) {
+				percentualDesconto = BigDecimal.valueOf(0.10); // 10%
+			} else if (quantidadeTotal >= 3) {
+				percentualDesconto = BigDecimal.valueOf(0.05); // 5%
+			}
+
+			// Calcula o valor do desconto para esse tipo de produto
+			if (percentualDesconto.compareTo(BigDecimal.ZERO) > 0) {
+				BigDecimal subtotalTipo = carrinho.getItens().stream()
+						.filter(item -> item.getProduto().getTipo() == tipo)
+						.map(item -> item.getProduto().getPreco()
+								.multiply(BigDecimal.valueOf(item.getQuantidade())))
+						.reduce(BigDecimal.ZERO, BigDecimal::add);
+
+				BigDecimal descontoTipo = subtotalTipo.multiply(percentualDesconto);
+				descontoTotal = descontoTotal.add(descontoTipo);
+			}
+		}
+
+		return descontoTotal;
 	}
 
 	public BigDecimal calcularPesoTributavelTotal(ItemCompra item) {
