@@ -176,21 +176,11 @@ public class CompraService {
 		BigDecimal multiplicador = BigDecimal.ZERO;
 
 		switch (regiao) {
-			case SUDESTE:
-				multiplicador = BigDecimal.valueOf(1.00);
-				break;
-			case SUL:
-				multiplicador = BigDecimal.valueOf(1.05);
-				break;
-			case NORDESTE:
-				multiplicador = BigDecimal.valueOf(1.10);
-				break;
-			case CENTRO_OESTE:
-				multiplicador = BigDecimal.valueOf(1.20);
-				break;
-			case NORTE:
-				multiplicador = BigDecimal.valueOf(1.30);
-				break;
+			case SUDESTE -> multiplicador = BigDecimal.valueOf(1.00);
+			case SUL -> multiplicador = BigDecimal.valueOf(1.05);
+			case NORDESTE -> multiplicador = BigDecimal.valueOf(1.10);
+			case CENTRO_OESTE -> multiplicador = BigDecimal.valueOf(1.20);
+			case NORTE -> multiplicador = BigDecimal.valueOf(1.30);
 		}
 
 		return freteTotal.multiply(multiplicador);
@@ -232,15 +222,9 @@ public class CompraService {
 		BigDecimal desconto = BigDecimal.ZERO;
 
 		switch (tipoCliente) {
-			case BRONZE:
-				desconto = BigDecimal.ZERO;
-				break;
-			case PRATA:
-				desconto = freteTotal.multiply(BigDecimal.valueOf(0.5));
-				break;
-			case OURO:
-				desconto = freteTotal.multiply(BigDecimal.valueOf(1.0));
-				break;
+			case BRONZE -> desconto = BigDecimal.ZERO;
+			case PRATA -> desconto = freteTotal.multiply(BigDecimal.valueOf(0.5));
+			case OURO -> desconto = freteTotal.multiply(BigDecimal.valueOf(1.0));
 		}
 
 		return freteTotal.subtract(desconto);

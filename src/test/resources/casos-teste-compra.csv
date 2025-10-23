@@ -1,0 +1,10 @@
+# Formato: testeName,clienteTipo,clienteRegiao,itens,valorEsperado
+# itens formato: produtoId:nome:preco:peso:comp:larg:alt:fragil:tipo:qtd|...
+Compra Cliente Ouro Nordeste com Eletronicos,OURO,NORDESTE,"1:Notebook:2000.00:2.5:35:25:3:false:ELETRONICO:1|2:Mouse:50.00:0.2:10:6:4:false:ELETRONICO:2|3:Teclado:150.00:0.8:45:15:4:false:ELETRONICO:1",1710.00
+Compra Cliente Bronze Sul Roupas,BRONZE,SUL,"4:Camiseta:30.00:0.3:30:20:2:false:ROUPA:5|5:Calça:80.00:0.5:35:25:3:false:ROUPA:3",279.30
+Compra Cliente Prata Sudeste Livros,PRATA,SUDESTE,"6:Livro Java:50.00:0.6:25:18:3:false:LIVRO:8|7:Livro Python:45.00:0.5:24:17:3:false:LIVRO:4",405.00
+Compra Cliente Ouro Norte Alimentos Frageis,OURO,NORTE,"8:Vinho:100.00:1.5:10:10:30:true:ALIMENTO:3|9:Champagne:200.00:1.8:10:10:32:true:ALIMENTO:2",500.00
+Compra Cliente Bronze Centro-Oeste Moveis Pesados,BRONZE,CENTRO_OESTE,"10:Mesa:500.00:25.0:150:80:75:false:MOVEL:1|11:Cadeira:200.00:8.0:50:50:90:false:MOVEL:4",1272.00
+Compra Cliente Prata Nordeste Mix Produtos,PRATA,NORDESTE,"12:Smartphone:1500.00:0.3:15:8:1:true:ELETRONICO:1|13:Fone:100.00:0.1:8:8:3:false:ELETRONICO:2|14:Capa:20.00:0.05:16:9:1:false:ROUPA:1",1297.50
+Compra Cliente Ouro Sudeste Compra Pequena,OURO,SUDESTE,"15:Caneta:5.00:0.02:15:1:1:false:LIVRO:3|16:Caderno:15.00:0.3:28:20:2:false:LIVRO:2",45.00
+Compra Cliente Bronze Nordeste Eletronicos Alto Valor,BRONZE,NORDESTE,"17:TV 50:2500.00:15.0:120:10:80:true:ELETRONICO:1|18:Soundbar:800.00:3.0:90:12:10:false:ELETRONICO:1",2984.00
