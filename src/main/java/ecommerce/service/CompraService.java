@@ -165,7 +165,7 @@ public class CompraService {
 		BigDecimal altura = item.getProduto().getAltura();
 
 		BigDecimal pesoVolumetrico = (comprimento.multiply(largura).multiply(altura))
-				.divide(BigDecimal.valueOf(6000));
+				.divide(BigDecimal.valueOf(6000), 2, RoundingMode.HALF_UP);
 
 		BigDecimal pesoTributavel = pesoFisico.max(pesoVolumetrico).multiply(BigDecimal.valueOf(item.getQuantidade()));
 
