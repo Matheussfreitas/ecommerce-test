@@ -342,19 +342,92 @@ xdg-open target/site/jacoco/index.html
 
 ## 📚 Documentação dos Casos de Teste
 
-### Grafo de Fluxo de Controle (CFG)
+### 📊 Tabela de Partições e Valores Limites
+
+Esta tabela identifica as partições de domínio e valores limites para cada variável de entrada do método `calcularCustoTotal`.
+
+| ID | Domínio | Partição | Valor | Tipo | Critério | Justificativa |
+|----|---------|----------|-------|------|----------|---------------|
+| 1 | Quantidade de Itens | Qtd = 0 | 0 | Inválido | Limite inferior | Carrinho vazio não deve gerar compra |
+| 2 | Quantidade de Itens | Qtd = 1–2 | 1 | Válido | Partição normal | Sem desconto por tipo |
+| 3 | Quantidade de Itens | Qtd = 3–4 | 3 | Válido | Partição desconto 5% | Aplica 5% de desconto |
+| 4 | Quantidade de Itens | Qtd = 5–7 | 5 | Válido | Partição desconto 10% | Aplica 10% de desconto |
+| 5 | Quantidade de Itens | Qtd ≥ 8 | 8 | Válido | Partição desconto 15% | Aplica 15% de desconto |
+| 6 | Quantidade de Itens | Qtd negativa | -1 | Inválido | Limite inválido | Quantidade não pode ser negativa |
+| 7 | Peso Total (kg) | peso < 0 | -0.1 | Inválido | Limite inferior | Peso não pode ser negativo |
+| 8 | Peso Total (kg) | 0 ≤ peso ≤ 5 | 5 | Válido | Faixa A | Isento de frete |
+| 9 | Peso Total (kg) | 5 < peso ≤ 10 | 5.1 | Válido | Faixa B | R$ 2,00/kg + taxa mínima R$12,00 |
+| 10 | Peso Total (kg) | 10 < peso ≤ 50 | 10.1 | Válido | Faixa C | R$ 4,00/kg + taxa mínima R$12,00 |
+| 11 | Peso Total (kg) | peso > 50 | 50.1 | Válido | Faixa D | R$ 7,00/kg + taxa mínima R$12,00 |
+| 12 | Subtotal (R$) | subtotal ≤ 0 | 0 | Inválido | Limite inferior | Valor total deve ser positivo |
+| 13 | Subtotal (R$) | 0 < subtotal ≤ 500 | 499 | Válido | Sem desconto | Não há desconto por valor |
+| 14 | Subtotal (R$) | 500 < subtotal ≤ 1000 | 500.01 | Válido | Desconto 10% | Aplica 10% de desconto |
+| 15 | Subtotal (R$) | subtotal > 1000 | 1001 | Válido | Desconto 20% | Aplica 20% de desconto |
+| 16 | Região | Sudeste | Sudeste | Válido | Multiplicador 1.00 | Frete base |
+| 17 | Região | Sul | Sul | Válido | Multiplicador 1.05 | Frete +5% |
+| 18 | Região | Nordeste | Nordeste | Válido | Multiplicador 1.10 | Frete +10% |
+| 19 | Região | Centro-Oeste | Centro-Oeste | Válido | Multiplicador 1.20 | Frete +20% |
+| 20 | Região | Norte | Norte | Válido | Multiplicador 1.30 | Frete +30% |
+| 21 | Região | Inválida | Desconhecida | Inválido | Entrada inválida | Região não cadastrada |
+| 22 | Tipo de Cliente | Ouro | Ouro | Válido | Desconto 100% frete | Frete zerado |
+| 23 | Tipo de Cliente | Prata | Prata | Válido | Desconto 50% frete | Metade do valor do frete |
+| 24 | Tipo de Cliente | Bronze | Bronze | Válido | Sem desconto frete | Paga frete integral |
+| 25 | Tipo de Cliente | Inválido | Platina | Inválido | Entrada inválida | Nível de fidelidade inexistente |
+| 26 | Frágil | Sim | True | Válido | Taxa adicional R$5,00/unidade | Item requer manuseio especial |
+| 27 | Frágil | Não | False | Válido | Sem taxa adicional | Item comum |
+| 28 | Frágil | Valor inválido | Talvez | Inválido | Entrada inválida | Campo deve ser booleano (T/F) |
+
+---
+
+### 🎯 Tabela de Decisão - Casos de Teste
+
+Esta tabela mapeia as regras de negócio e combinações de condições que devem ser testadas.
+
+| ID | Condição / Regra | Entrada de Exemplo | Ação Esperada | Resultado Esperado |
+|----|------------------|-------------------|---------------|-------------------|
+| 1 | Subtotal > 1000 | Subtotal = 1200 | Aplica desconto de 20% | Subtotal final = 1200 × 0.8 = 960,00 |
+| 2 | 500 < Subtotal ≤ 1000 | Subtotal = 700 | Aplica desconto de 10% | Subtotal final = 700 × 0.9 = 630,00 |
+| 3 | Subtotal ≤ 500 | Subtotal = 400 | Nenhum desconto aplicado | Subtotal final = 400,00 |
+| 4 | 3–4 itens do mesmo tipo | Qtd = 3 | Aplica desconto de 5% sobre o subtotal do tipo | Subtotal tipo = subtotal × 0.95 |
+| 5 | 5–7 itens do mesmo tipo | Qtd = 5 | Aplica desconto de 10% sobre o subtotal do tipo | Subtotal tipo = subtotal × 0.90 |
+| 6 | ≥8 itens do mesmo tipo | Qtd = 8 | Aplica desconto de 15% sobre o subtotal do tipo | Subtotal tipo = subtotal × 0.85 |
+| 7 | Peso ≤ 5 kg | Peso = 5 | Frete isento | Frete = 0,00 |
+| 8 | 5 < Peso ≤ 10 kg | Peso = 6 | Frete = R$2,00/kg + taxa mínima R$12,00 | Frete = (6×2)+12 = 24,00 |
+| 9 | 10 < Peso ≤ 50 kg | Peso = 20 | Frete = R$4,00/kg + taxa mínima R$12,00 | Frete = (20×4)+12 = 92,00 |
+| 10 | Peso > 50 kg | Peso = 60 | Frete = R$7,00/kg + taxa mínima R$12,00 | Frete = (60×7)+12 = 432,00 |
+| 11 | Região = Sudeste | Sudeste | Multiplica frete × 1.00 | Frete sem alteração |
+| 12 | Região = Norte | Norte | Multiplica frete × 1.30 | Frete aumenta 30% |
+| 13 | Região = Nordeste | Nordeste | Multiplica frete × 1.10 | Frete aumenta 10% |
+| 14 | Cliente Ouro | Ouro | Desconto de 100% sobre o frete | Frete final = 0,00 |
+| 15 | Cliente Prata | Prata | Desconto de 50% sobre o frete | Frete final = frete × 0.5 |
+| 16 | Cliente Bronze | Bronze | Sem desconto sobre o frete | Frete final = frete |
+| 17 | Item frágil = Sim | Sim | Soma R$5,00 × quantidade ao frete | Frete += 5×qtd |
+| 18 | Item frágil = Não | Não | Sem taxa adicional | Frete inalterado |
+| 19 | Quantidade ≤ 0 | Qtd = 0 | Entrada inválida | Lança exceção (assertThrows) |
+| 20 | Preço unitário < 0 | Preço = -10 | Entrada inválida | Lança exceção (assertThrows) |
+| 21 | Cliente nulo | Cliente = null | Entrada inválida | Lança exceção (assertThrows) |
+
+---
+
+### 🔀 Grafo de Fluxo de Controle (CFG)
 
 *[A ser incluído após implementação]*
 
-### Complexidade Ciclomática V(G)
+---
+
+### 📐 Complexidade Ciclomática V(G)
 
 *[A ser calculado após implementação]*
 
-### Tabela MC/DC
+---
+
+### ✅ Tabela MC/DC
 
 *[A ser incluída após análise da decisão composta mais complexa]*
 
-### Casos de Teste Detalhados
+---
+
+### 📝 Casos de Teste Detalhados
 
 *[Link para planilha/documento separado com todos os casos de teste]*
 

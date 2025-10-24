@@ -1,0 +1,29 @@
+﻿ID,Domínio,Partição,Valor,Tipo,Critério,Justificativa
+1,Quantidade de Itens,Qtd = 0,0,Inválido,Limite inferior,Carrinho vazio não deve gerar compra
+2,Quantidade de Itens,Qtd = 1–2,1,Válido,Partição normal,Sem desconto por tipo
+3,Quantidade de Itens,Qtd = 3–4,3,Válido,Partição desconto 5%,Aplica 5% de desconto
+4,Quantidade de Itens,Qtd = 5–7,5,Válido,Partição desconto 10%,Aplica 10% de desconto
+5,Quantidade de Itens,Qtd ≥ 8,8,Válido,Partição desconto 15%,Aplica 15% de desconto
+6,Quantidade de Itens,Qtd negativa,-1,Inválido,Limite inválido,Quantidade não pode ser negativa
+7,Peso Total (kg),peso < 0,-0.1,Inválido,Limite inferior,Peso não pode ser negativo
+8,Peso Total (kg),0 ≤ peso ≤ 5,5,Válido,Faixa A,Isento de frete
+9,Peso Total (kg),5 < peso ≤ 10,5.1,Válido,Faixa B,"R$ 2,00/kg + taxa mínima R$12,00"
+10,Peso Total (kg),10 < peso ≤ 50,10.1,Válido,Faixa C,"R$ 4,00/kg + taxa mínima R$12,00"
+11,Peso Total (kg),peso > 50,50.1,Válido,Faixa D,"R$ 7,00/kg + taxa mínima R$12,00"
+12,Subtotal (R$),subtotal ≤ 0,0,Inválido,Limite inferior,Valor total deve ser positivo
+13,Subtotal (R$),0 < subtotal ≤ 500,499,Válido,Sem desconto,Não há desconto por valor
+14,Subtotal (R$),500 < subtotal ≤ 1000,500.01,Válido,Desconto 10%,Aplica 10% de desconto
+15,Subtotal (R$),subtotal > 1000,1001,Válido,Desconto 20%,Aplica 20% de desconto
+16,Região,Sudeste,Sudeste,Válido,Multiplicador 1.00,Frete base
+17,Região,Sul,Sul,Válido,Multiplicador 1.05,Frete +5%
+18,Região,Nordeste,Nordeste,Válido,Multiplicador 1.10,Frete +10%
+19,Região,Centro-Oeste,Centro-Oeste,Válido,Multiplicador 1.20,Frete +20%
+20,Região,Norte,Norte,Válido,Multiplicador 1.30,Frete +30%
+21,Região,Inválida,Desconhecida,Inválido,Entrada inválida,Região não cadastrada
+22,Tipo de Cliente,Ouro,Ouro,Válido,Desconto 100% frete,Frete zerado
+23,Tipo de Cliente,Prata,Prata,Válido,Desconto 50% frete,Metade do valor do frete
+24,Tipo de Cliente,Bronze,Bronze,Válido,Sem desconto frete,Paga frete integral
+25,Tipo de Cliente,Inválido,Platina,Inválido,Entrada inválida,Nível de fidelidade inexistente
+26,Frágil,Sim,True,Válido,"Taxa adicional R$5,00/unidade",Item requer manuseio especial
+27,Frágil,Não,False,Válido,Sem taxa adicional,Item comum
+28,Frágil,Valor inválido,Talvez,Inválido,Entrada inválida,Campo deve ser booleano (T/F)
