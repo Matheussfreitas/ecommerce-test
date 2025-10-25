@@ -18,7 +18,7 @@ import ecommerce.entity.TipoProduto;
 
 /**
  * Testes de Partições de Domínio (Caixa Preta) - Baseado na Tabela de Partições
- * 
+ *
  * Cobre as seguintes partições:
  * - Quantidade de Itens (0, 1-2, 3-4, 5-7, ≥8, negativa)
  * - Peso Total (< 0, 0-5kg, 5-10kg, 10-50kg, > 50kg)
@@ -28,10 +28,10 @@ import ecommerce.entity.TipoProduto;
  * - Produto Frágil (Sim, Não)
  */
 @DisplayName("Testes de Partições de Domínio - CompraService")
-public class PerticoesTest {
+public class ParticoesTest {
 
     private CompraService compraService;
-    
+
     // Constantes para facilitar manutenção
     private static final BigDecimal PRECO_PADRAO = new BigDecimal("100.00");
     private static final BigDecimal PESO_PADRAO = new BigDecimal("1.0");
@@ -52,10 +52,10 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert
         assertThat(custoTotal)
             .as("Carrinho vazio deve ter custo total zero")
@@ -68,13 +68,13 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
+
         Produto produto = criarProduto("Produto A", PRECO_PADRAO, PESO_PADRAO, false, TipoProduto.ELETRONICO);
         adicionarItem(carrinho, produto, 2); // 2 itens do mesmo tipo
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert
         BigDecimal subtotalEsperado = PRECO_PADRAO.multiply(new BigDecimal("2")); // 200.00
         assertThat(custoTotal)
@@ -88,13 +88,13 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
+
         Produto produto = criarProduto("Produto A", PRECO_PADRAO, new BigDecimal("1.0"), false, TipoProduto.ELETRONICO);
         adicionarItem(carrinho, produto, 3); // 3 itens do mesmo tipo
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert - Cálculo:
         // 1. Subtotal bruto: 300
         // 2. Desconto por quantidade (5%): 15
@@ -104,7 +104,7 @@ public class PerticoesTest {
         BigDecimal subtotalBruto = PRECO_PADRAO.multiply(new BigDecimal("3")); // 300
         BigDecimal desconto = subtotalBruto.multiply(new BigDecimal("0.05")); // 15
         BigDecimal custoEsperado = subtotalBruto.subtract(desconto); // 285
-        
+
         assertThat(custoTotal)
             .as("Com 3 itens do mesmo tipo, deve aplicar 5%% de desconto")
             .isEqualByComparingTo(custoEsperado);
@@ -116,13 +116,13 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
+
         Produto produto = criarProduto("Produto A", PRECO_PADRAO, new BigDecimal("1.0"), false, TipoProduto.ELETRONICO);
         adicionarItem(carrinho, produto, 5); // 5 itens do mesmo tipo
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert - Cálculo:
         // 1. Subtotal bruto: 500
         // 2. Desconto por quantidade (10%): 50
@@ -132,7 +132,7 @@ public class PerticoesTest {
         BigDecimal subtotalBruto = PRECO_PADRAO.multiply(new BigDecimal("5")); // 500
         BigDecimal desconto = subtotalBruto.multiply(new BigDecimal("0.10")); // 50
         BigDecimal custoEsperado = subtotalBruto.subtract(desconto); // 450
-        
+
         assertThat(custoTotal)
             .as("Com 5 itens do mesmo tipo, deve aplicar 10%% de desconto")
             .isEqualByComparingTo(custoEsperado);
@@ -144,13 +144,13 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
+
         Produto produto = criarProduto("Produto A", PRECO_PADRAO, new BigDecimal("1.0"), false, TipoProduto.ELETRONICO);
         adicionarItem(carrinho, produto, 8); // 8 itens do mesmo tipo
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert - Cálculo em etapas:
         // 1. Subtotal bruto: 800
         // 2. Desconto por quantidade (15%): 800 * 0.15 = 120
@@ -166,7 +166,7 @@ public class PerticoesTest {
         BigDecimal subtotalFinal = subtotalAposDescontoQtd.subtract(descontoValor); // 612
         BigDecimal frete = new BigDecimal("8").multiply(new BigDecimal("2")).add(new BigDecimal("12")); // 28
         BigDecimal custoEsperado = subtotalFinal.add(frete); // 640
-        
+
         assertThat(custoTotal)
             .as("Com 8 ou mais itens do mesmo tipo, deve aplicar 15%% de desconto por quantidade E 10%% por valor")
             .isEqualByComparingTo(custoEsperado);
@@ -182,14 +182,14 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
-        Produto produto = criarProduto("Produto Leve", new BigDecimal("100.00"), 
+
+        Produto produto = criarProduto("Produto Leve", new BigDecimal("100.00"),
                                        new BigDecimal("5.0"), false, TipoProduto.LIVRO);
         adicionarItem(carrinho, produto, 1);
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert - Apenas o subtotal, sem frete
         assertThat(custoTotal)
             .as("Peso ≤ 5kg deve ter frete isento")
@@ -202,14 +202,14 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
-        Produto produto = criarProduto("Produto Médio", new BigDecimal("100.00"), 
+
+        Produto produto = criarProduto("Produto Médio", new BigDecimal("100.00"),
                                        new BigDecimal("6.0"), false, TipoProduto.LIVRO);
         adicionarItem(carrinho, produto, 1);
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert - Subtotal: 100 + Frete: (6 * 2) + 12 = 24
         BigDecimal custoEsperado = new BigDecimal("124.00");
         assertThat(custoTotal)
@@ -223,14 +223,14 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
-        Produto produto = criarProduto("Produto Pesado", new BigDecimal("100.00"), 
+
+        Produto produto = criarProduto("Produto Pesado", new BigDecimal("100.00"),
                                        new BigDecimal("20.0"), false, TipoProduto.LIVRO);
         adicionarItem(carrinho, produto, 1);
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert - Subtotal: 100 + Frete: (20 * 4) + 12 = 92
         BigDecimal custoEsperado = new BigDecimal("192.00");
         assertThat(custoTotal)
@@ -244,14 +244,14 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
-        Produto produto = criarProduto("Produto Muito Pesado", new BigDecimal("100.00"), 
+
+        Produto produto = criarProduto("Produto Muito Pesado", new BigDecimal("100.00"),
                                        new BigDecimal("60.0"), false, TipoProduto.LIVRO);
         adicionarItem(carrinho, produto, 1);
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert - Subtotal: 100 + Frete: (60 * 7) + 12 = 432
         BigDecimal custoEsperado = new BigDecimal("532.00");
         assertThat(custoTotal)
@@ -269,14 +269,14 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
-        Produto produto = criarProduto("Produto", new BigDecimal("400.00"), 
+
+        Produto produto = criarProduto("Produto", new BigDecimal("400.00"),
                                        new BigDecimal("1.0"), false, TipoProduto.LIVRO);
         adicionarItem(carrinho, produto, 1);
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert
         assertThat(custoTotal)
             .as("Subtotal ≤ R$ 500 não deve ter desconto por valor")
@@ -289,14 +289,14 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
-        Produto produto = criarProduto("Produto", new BigDecimal("600.00"), 
+
+        Produto produto = criarProduto("Produto", new BigDecimal("600.00"),
                                        new BigDecimal("1.0"), false, TipoProduto.LIVRO);
         adicionarItem(carrinho, produto, 1);
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert - Subtotal: 600, Desconto 10%: 60, Final: 540
         BigDecimal custoEsperado = new BigDecimal("540.00");
         assertThat(custoTotal)
@@ -310,14 +310,14 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
-        Produto produto = criarProduto("Produto Caro", new BigDecimal("1200.00"), 
+
+        Produto produto = criarProduto("Produto Caro", new BigDecimal("1200.00"),
                                        new BigDecimal("1.0"), false, TipoProduto.ELETRONICO);
         adicionarItem(carrinho, produto, 1);
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert - Subtotal: 1200, Desconto 20%: 240, Final: 960
         BigDecimal custoEsperado = new BigDecimal("960.00");
         assertThat(custoTotal)
@@ -335,14 +335,14 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
-        Produto produto = criarProduto("Produto", new BigDecimal("100.00"), 
+
+        Produto produto = criarProduto("Produto", new BigDecimal("100.00"),
                                        new BigDecimal("6.0"), false, TipoProduto.LIVRO);
         adicionarItem(carrinho, produto, 1);
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert - Frete base sem multiplicador adicional
         BigDecimal custoEsperado = new BigDecimal("124.00"); // 100 + (6*2 + 12)
         assertThat(custoTotal)
@@ -356,14 +356,14 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUL);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
-        Produto produto = criarProduto("Produto", new BigDecimal("100.00"), 
+
+        Produto produto = criarProduto("Produto", new BigDecimal("100.00"),
                                        new BigDecimal("6.0"), false, TipoProduto.LIVRO);
         adicionarItem(carrinho, produto, 1);
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert - Frete: 24 * 1.05 = 25.20, Total: 125.20
         BigDecimal custoEsperado = new BigDecimal("125.20");
         assertThat(custoTotal)
@@ -377,14 +377,14 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.NORDESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
-        Produto produto = criarProduto("Produto", new BigDecimal("100.00"), 
+
+        Produto produto = criarProduto("Produto", new BigDecimal("100.00"),
                                        new BigDecimal("6.0"), false, TipoProduto.LIVRO);
         adicionarItem(carrinho, produto, 1);
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert - Frete: 24 * 1.10 = 26.40, Total: 126.40
         BigDecimal custoEsperado = new BigDecimal("126.40");
         assertThat(custoTotal)
@@ -398,14 +398,14 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.CENTRO_OESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
-        Produto produto = criarProduto("Produto", new BigDecimal("100.00"), 
+
+        Produto produto = criarProduto("Produto", new BigDecimal("100.00"),
                                        new BigDecimal("6.0"), false, TipoProduto.LIVRO);
         adicionarItem(carrinho, produto, 1);
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert - Frete: 24 * 1.20 = 28.80, Total: 128.80
         BigDecimal custoEsperado = new BigDecimal("128.80");
         assertThat(custoTotal)
@@ -419,14 +419,14 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.NORTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
-        Produto produto = criarProduto("Produto", new BigDecimal("100.00"), 
+
+        Produto produto = criarProduto("Produto", new BigDecimal("100.00"),
                                        new BigDecimal("6.0"), false, TipoProduto.LIVRO);
         adicionarItem(carrinho, produto, 1);
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert - Frete: 24 * 1.30 = 31.20, Total: 131.20
         BigDecimal custoEsperado = new BigDecimal("131.20");
         assertThat(custoTotal)
@@ -444,14 +444,14 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.OURO, Regiao.SUDESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
-        Produto produto = criarProduto("Produto", new BigDecimal("100.00"), 
+
+        Produto produto = criarProduto("Produto", new BigDecimal("100.00"),
                                        new BigDecimal("20.0"), false, TipoProduto.LIVRO);
         adicionarItem(carrinho, produto, 1);
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert - Apenas subtotal, sem frete
         assertThat(custoTotal)
             .as("Cliente Ouro deve ter frete grátis (100%% de desconto)")
@@ -464,14 +464,14 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.PRATA, Regiao.SUDESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
-        Produto produto = criarProduto("Produto", new BigDecimal("100.00"), 
+
+        Produto produto = criarProduto("Produto", new BigDecimal("100.00"),
                                        new BigDecimal("6.0"), false, TipoProduto.LIVRO);
         adicionarItem(carrinho, produto, 1);
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert - Frete: 24 / 2 = 12, Total: 112
         BigDecimal custoEsperado = new BigDecimal("112.00");
         assertThat(custoTotal)
@@ -485,14 +485,14 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
-        Produto produto = criarProduto("Produto", new BigDecimal("100.00"), 
+
+        Produto produto = criarProduto("Produto", new BigDecimal("100.00"),
                                        new BigDecimal("6.0"), false, TipoProduto.LIVRO);
         adicionarItem(carrinho, produto, 1);
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert - Frete integral: 24, Total: 124
         BigDecimal custoEsperado = new BigDecimal("124.00");
         assertThat(custoTotal)
@@ -510,14 +510,14 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
-        Produto produtoFragil = criarProduto("Produto Frágil", new BigDecimal("100.00"), 
+
+        Produto produtoFragil = criarProduto("Produto Frágil", new BigDecimal("100.00"),
                                              new BigDecimal("2.0"), true, TipoProduto.ELETRONICO);
         adicionarItem(carrinho, produtoFragil, 2); // 2 unidades
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert - Subtotal: 200, Frete isento (4kg), Taxa frágil: 2 * 5 = 10
         BigDecimal custoEsperado = new BigDecimal("210.00");
         assertThat(custoTotal)
@@ -531,14 +531,14 @@ public class PerticoesTest {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
-        
-        Produto produtoNormal = criarProduto("Produto Normal", new BigDecimal("100.00"), 
+
+        Produto produtoNormal = criarProduto("Produto Normal", new BigDecimal("100.00"),
                                              new BigDecimal("2.0"), false, TipoProduto.LIVRO);
         adicionarItem(carrinho, produtoNormal, 2);
-        
+
         // Act
         BigDecimal custoTotal = compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        
+
         // Assert - Apenas subtotal, sem taxa de fragilidade
         BigDecimal custoEsperado = new BigDecimal("200.00");
         assertThat(custoTotal)
@@ -561,7 +561,7 @@ public class PerticoesTest {
         return carrinho;
     }
 
-    private Produto criarProduto(String nome, BigDecimal preco, BigDecimal peso, 
+    private Produto criarProduto(String nome, BigDecimal preco, BigDecimal peso,
                                  boolean fragil, TipoProduto tipo) {
         return new Produto(
             1L,
