@@ -55,7 +55,7 @@ public class LimitesTest {
 
     @Test
     @DisplayName("ID 30 - Limite Qtd <=0 (Lançar Excessão)")
-    void testRobustezQuantidadeNegativa() {
+    void testRobustezQuantidadeZerada() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
@@ -70,7 +70,7 @@ public class LimitesTest {
 
     @Test
     @DisplayName("ID 31 - Limite Qtd=1 (Min 0% Desconto)")
-    void testQtdLimite0NenhumDesconto() {
+    void testQtdLimite1NenhumDesconto() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
         CarrinhoDeCompras carrinho = criarCarrinho(cliente);
