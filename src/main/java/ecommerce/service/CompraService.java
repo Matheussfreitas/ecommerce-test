@@ -78,6 +78,13 @@ public class CompraService {
 	}
 
 	public BigDecimal calcularCustoTotal(CarrinhoDeCompras carrinho, Regiao regiao, TipoCliente tipoCliente) {
+		carrinho.getItens().forEach(produto -> {
+			if(produto.getQuantidade()<=0 ||
+					produto.getProduto().getPesoFisico().compareTo(BigDecimal.ZERO) < 0 ||
+					produto.getProduto().getPreco().compareTo(BigDecimal.ZERO) < 0) {
+				throw new IllegalArgumentException();
+			}
+		});
 		// Calcula o subtotal dos itens
 		BigDecimal subtotalItens = carrinho.getItens().stream()
 				.map(item -> item.getProduto().getPreco().multiply(BigDecimal.valueOf(item.getQuantidade())))
