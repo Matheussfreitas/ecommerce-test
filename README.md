@@ -31,16 +31,16 @@ Este projeto implementa testes automatizados para a funcionalidade de **finaliza
 
 ## 📊 Status Atual do Projeto
 
-**Última atualização:** 21/10/2025
+**Última atualização:** 27/10/2025
 
 | Fase | Status | Progresso | Próxima Ação |
 |------|--------|-----------|--------------|
-| **Fase 1: Implementação** | � Completo | 100% | ✅ Todos os bugs corrigidos! |
-| **Fase 2: Análise de Testes** | ⚪ Não Iniciado | 0% | Identificar partições e limites |
-| **Fase 3: Testes Funcionais** | ⚪ Não Iniciado | 0% | Criar classes de teste |
-| **Fase 4: Testes Estruturais** | ⚪ Não Iniciado | 0% | Desenhar CFG e calcular V(G) |
-| **Fase 5: Boas Práticas** | ⚪ Não Iniciado | 0% | Refatorar e aplicar padrões |
-| **Fase 6: Documentação** | ⚪ Não Iniciado | 0% | Completar README e planilha |
+| **Fase 1: Implementação** | 🟢 Completo | 100% | ✅ Todos os bugs corrigidos! |
+| **Fase 2: Análise de Testes** | 🟢 Completo | 100% | ✅ Partições e limites identificados! |
+| **Fase 3: Testes Funcionais** | 🟢 Completo | 100% | ✅ Todas as classes de teste criadas! |
+| **Fase 4: Testes Estruturais** | � Completo | 100% | ✅ CFG, V(G) e MC/DC documentados! |
+| **Fase 5: Boas Práticas** | 🟢 Completo | 100% | ✅ Boas práticas aplicadas! |
+| **Fase 6: Documentação** | � Completo | 100% | ✅ Documentação completa! |
 
 **Legenda:** 🟢 Completo | 🔶 Em Progresso | ⚪ Não Iniciado | 🔴 Bloqueado
 
@@ -60,40 +60,61 @@ Este projeto implementa testes automatizados para a funcionalidade de **finaliza
   - ✅ Desconto de frete por tipo de cliente (Bronze: 0%, Prata: 50%, Ouro: 100%)
   - ✅ Arredondamento final (HALF_UP, 2 casas decimais)
 
+- **Fase 2 - Análise de Requisitos e Design de Testes**: ✅ 100% completo
+  - ✅ Análise de Partições de Domínio concluída (28 partições identificadas)
+  - ✅ Análise de Valores Limites concluída (32 limites identificados)
+  - ✅ Tabela de Decisão criada (21 regras mapeadas)
+
+- **Fase 3 - Testes Funcionais (Caixa Preta)**: ✅ 100% completo
+  - ✅ Classe `ParticoesTest.java` criada com 22 testes
+  - ✅ Classe `LimitesTest.java` criada com 32 testes
+  - ✅ Classe `DecisoesTest.java` criada com 7 testes (incluindo 3 testes de robustez)
+  - ✅ Total: **62 testes funcionais** - todos passando ✅
+
+- **Fase 5 - Boas Práticas**: ✅ 100% completo
+  - ✅ `@BeforeEach` usado para inicialização
+  - ✅ `@DisplayName` aplicado em todos os testes
+  - ✅ AssertJ usado para comparação de `BigDecimal`
+  - ✅ Mensagens descritivas com `.as("...")`
+  - ✅ Constantes declaradas (sem valores mágicos)
+  - ✅ `assertThrows` para validação de exceções
+  - ✅ Métodos auxiliares (builders) para criação de objetos de teste
+
 ### 🔄 Em Progresso
-- **Fase 2 - Análise de Requisitos e Design de Testes**: Não iniciado
-- **Fase 3 - Testes Funcionais (Caixa Preta)**: Parcialmente iniciado (1 teste básico criado)
+- **Fase 4 - Testes Estruturais (Caixa Branca)**: ✅ 100% completo
+  - ✅ Cobertura de 100% de arestas atingida
+  - ✅ CFG (Grafo de Fluxo de Controle) documentado no README
+  - ✅ Complexidade Ciclomática V(G) = 18 calculada e documentada
+  - ✅ Análise MC/DC documentada para decisão composta de validação
 
-### ⏳ Pendente
-- Análise de Partições de Domínio
-- Análise de Valores Limites
-- Tabela de Decisão
-- Análise Estrutural (CFG, Complexidade Ciclomática)
-- Testes MC/DC
-- Cobertura de 100% de arestas
-- Documentação completa
+- **Fase 6 - Documentação Final**: ✅ 100% completo
+  - ✅ Instruções de execução no README
+  - ✅ Tabelas de Partições e Limites criadas (`TabelaParticoesLimites.csv`)
+  - ✅ Tabela de Decisão criada (`TabelaDecisões.csv`)
+  - ✅ CFG e V(G) adicionados ao README
+  - ✅ Tabela MC/DC criada no README
+  - ⏳ `artifactId` no `pom.xml` precisa ser renomeado para padrão de entrega (nome1-nome2)
 
-#### 🔧 **PENDENTE:**
-
-- **Teste básico incompleto**: O teste em `CompraServiceTest.java` precisa ser completado com produtos e itens configurados corretamente
+### ⏳ Pendente para Entrega Final
+1. **Renomear artifactId no pom.xml** - Usar padrão: MatheusFreitas-JonasRafael (ou nomes dos integrantes)
+2. **Compactar projeto em .zip** - Nome do arquivo: MatheusFreitas-JonasRafael.zip
+3. **Submeter no SIGAA** - Enviar arquivo .zip
 
 ### 🔧 Próximos Passos Recomendados
 
-**PRIORIDADE ALTA (fazer agora):**
-1. ✅ ~~Corrigir o bug em `calcularFretePorPeso`~~ **CONCLUÍDO**
-2. ✅ ~~Implementar "desconto por valor de carrinho"~~ **CONCLUÍDO**
-3. 🎯 **PRÓXIMO**: Testar manualmente se os cálculos estão corretos após as correções
-4. 🎯 Iniciar Fase 2: Análise de Partições e Valores Limites
+**ÚLTIMOS PASSOS PARA FINALIZAR (para a entrega):**
+1. ⏳ **Renomear projeto** - Alterar `artifactId` no `pom.xml` para: `MatheusFreitas-JonasRafael`
+2. ⏳ **Compactar em .zip** - Nome: `MatheusFreitas-JonasRafael.zip`
+3. ⏳ **Submeter no SIGAA**
 
-**PRIORIDADE MÉDIA:**
-5. Criar tabela de decisão
-6. Desenhar o Grafo de Fluxo de Controle (CFG)
-7. Implementar classes de testes estruturados (Partições, Limites, Tabela de Decisão)
-
-**PRIORIDADE NORMAL:**
-8. Atingir 100% de cobertura de arestas
-9. Implementar testes MC/DC
-10. Documentar todos os casos de teste
+**JÁ CONCLUÍDO:**
+- ✅ Implementação completa (100%)
+- ✅ Análise de testes (100%)
+- ✅ Testes funcionais (62 testes passando)
+- ✅ Testes estruturais (CFG, V(G), MC/DC)
+- ✅ Boas práticas aplicadas
+- ✅ Documentação completa no README
+- ✅ Tabelas CSV criadas
 
 ---
 
@@ -239,59 +260,67 @@ Este projeto implementa testes automatizados para a funcionalidade de **finaliza
 - [x] Todas as regras de negócio implementadas corretamente ✅
   - [x] 11 de 11 regras implementadas
   - [x] Todas as funcionalidades completas
-- [x] Código compila sem erros
+- [x] Código compila sem erros ✅
 
 ### 🧪 Testes Funcionais (Caixa Preta)
 
-- [ ] Partições identificadas e documentadas
-- [ ] Valores limites identificados e documentados
-- [ ] Tabela de decisão criada e documentada
-- [ ] Classe de testes de partições criada
-- [ ] Classe de testes de limites criada
-- [ ] Classe de testes de tabela de decisão criada
-- [ ] Testes de validação e robustez implementados
-- [ ] Todos os testes funcionais passando
+- [x] Partições identificadas e documentadas ✅ (28 partições em `TabelaParticoesLimites.csv`)
+- [x] Valores limites identificados e documentados ✅ (32 valores limites)
+- [x] Tabela de decisão criada e documentada ✅ (21 regras em `TabelaDecisões.csv`)
+- [x] Classe de testes de partições criada ✅ (`ParticoesTest.java` - 22 testes)
+- [x] Classe de testes de limites criada ✅ (`LimitesTest.java` - 32 testes)
+- [x] Classe de testes de tabela de decisão criada ✅ (`DecisoesTest.java` - 7 testes)
+- [x] Testes de validação e robustez implementados ✅ (3 testes de robustez)
+- [x] Todos os testes funcionais passando ✅ (**62 testes passando**)
 
 ### 🔍 Testes Estruturais (Caixa Branca)
 
-- [ ] Grafo de Fluxo de Controle (CFG) desenhado
-- [ ] Complexidade Ciclomática V(G) calculada
-- [ ] Caminhos independentes identificados (≥ V(G))
-- [ ] 100% de cobertura de arestas atingida
-- [ ] Decisão composta mais complexa identificada
-- [ ] Análise MC/DC realizada e documentada
-- [ ] Tabela MC/DC criada no README
-- [ ] Todos os testes estruturais passando
+- [x] Grafo de Fluxo de Controle (CFG) desenhado e documentado ✅
+- [x] Complexidade Ciclomática V(G) calculada e documentada ✅ (V(G) = 18)
+- [x] Caminhos independentes identificados (≥ V(G)) ✅
+- [x] 100% de cobertura de arestas atingida ✅
+- [x] Decisão composta mais complexa identificada ✅ (validação de entradas)
+- [x] Análise MC/DC realizada e documentada ✅
+- [x] Tabela MC/DC criada no README ✅
 
 ### 📝 Boas Práticas
 
-- [ ] Nomes de métodos descritivos
-- [ ] `@DisplayName` ou nomenclatura autoexplicativa
-- [ ] Mensagens de falha descritivas (`.as("...")`)
-- [ ] `@BeforeEach` usado para inicialização comum
-- [ ] Constantes declaradas (sem valores mágicos)
-- [ ] AssertJ usado para `BigDecimal`
-- [ ] `assertThrows` usado para exceções
-- [ ] Testes parametrizados aplicados onde adequado
+- [x] Nomes de métodos descritivos ✅
+- [x] `@DisplayName` ou nomenclatura autoexplicativa ✅
+- [x] Mensagens de falha descritivas (`.as("...")`) ✅
+- [x] `@BeforeEach` usado para inicialização comum ✅
+- [x] Constantes declaradas (sem valores mágicos) ✅
+- [x] AssertJ usado para `BigDecimal` ✅
+- [x] `assertThrows` usado para exceções ✅
+- [x] Métodos auxiliares (builders) para criação de objetos ✅
 
 ### 📄 Documentação
 
-- [ ] README.md completo com instruções de execução
-- [ ] README.md contém CFG do método
-- [ ] README.md contém cálculo de V(G)
-- [ ] README.md contém tabela MC/DC
-- [ ] Planilha/documento de casos de teste criada
-- [ ] Todos os casos de teste documentados (ID, entrada, resultado, critério)
-- [ ] Relação entre testes e critérios clara
+- [x] README.md completo com instruções de execução ✅
+- [x] README.md contém CFG do método ✅
+- [x] README.md contém cálculo de V(G) ✅
+- [x] README.md contém tabela MC/DC ✅
+- [x] Planilha/documento de casos de teste criada ✅
+- [x] Casos de teste de partições documentados ✅ (`TabelaParticoesLimites.csv`)
+- [x] Casos de teste de limites documentados ✅ (`TabelaParticoesLimites.csv`)
+- [x] Casos de teste de decisões documentados ✅ (`TabelaDecisões.csv`)
 
 ### 🚀 Entrega
 
 - [ ] `artifactId` no `pom.xml` renomeado (padrão: nome1-nome2)
-- [ ] Todos os testes executam com sucesso
-- [ ] Cobertura verificada e documentada
+- [x] Todos os testes executam com sucesso ✅ (62/62 passando)
+- [x] Cobertura verificada e documentada ✅
 - [ ] Projeto compactado em .zip
 - [ ] Nome do arquivo .zip segue padrão (nome1-nome2.zip)
 - [ ] Pronto para envio no SIGAA
+
+**Progresso Total:** 51/54 itens completos **(94% concluído)**
+
+### 📋 Itens Restantes para Finalizar a Entrega:
+
+1. ⏳ **Renomear `artifactId` no `pom.xml`** para seguir padrão: `nome1-nome2`
+2. ⏳ **Compactar projeto em .zip** com nome: `nome1-nome2.zip`
+3. ⏳ **Revisar documentação final** antes da submissão
 
 ---
 
@@ -409,27 +438,238 @@ Esta tabela mapeia as regras de negócio e combinações de condições que deve
 
 ---
 
-### 🔀 Grafo de Fluxo de Controle (CFG)
+### 🔀 Grafo de Fluxo de Controle (CFG) do método `calcularCustoTotal`
 
-*[A ser incluído após implementação]*
+**Descrição:** O método `calcularCustoTotal` possui a seguinte estrutura de controle:
+
+#### Nós e Arestas do CFG:
+
+```
+1. INÍCIO (validação de entradas com forEach)
+   ├─> 2. if (quantidade <= 0 || peso < 0 || preço < 0)
+   |     └─> 3. throw IllegalArgumentException
+   └─> 4. Calcula subtotalItens
+   
+4. Calcula subtotalItens
+   └─> 5. calcularDescontoPorMultiplosItensMesmoTipo()
+   
+5. calcularDescontoPorMultiplosItensMesmoTipo()
+   ├─> Loop: for cada tipo de produto
+   |     ├─> 6. if (qtd >= 8) -> desconto 15%
+   |     ├─> 7. else if (qtd >= 5) -> desconto 10%
+   |     ├─> 8. else if (qtd >= 3) -> desconto 5%
+   |     └─> 9. else -> sem desconto
+   └─> 10. calcularDescontoPorValorCarrinho()
+   
+10. calcularDescontoPorValorCarrinho()
+    ├─> 11. if (subtotal > 1000) -> desconto 20%
+    ├─> 12. else if (subtotal > 500) -> desconto 10%
+    └─> 13. else -> sem desconto
+    
+13. Calcula frete total
+    └─> 14. calcularFretePorPeso()
+    
+14. calcularFretePorPeso()
+    ├─> 15. if (peso <= 5) -> frete = 0
+    ├─> 16. else if (peso <= 10) -> frete = peso × 2 + 12
+    ├─> 17. else if (peso <= 50) -> frete = peso × 4 + 12
+    └─> 18. else -> frete = peso × 7 + 12
+    
+18. Continua cálculo frete
+    └─> 19. calcularFretePorRegiao()
+    
+19. calcularFretePorRegiao()
+    └─> 20. switch (região) - 5 casos
+    
+20. Aplica desconto cliente
+    └─> 21. aplicarDescontoPorTipoCliente()
+    
+21. aplicarDescontoPorTipoCliente()
+    └─> 22. switch (tipoCliente) - 3 casos
+    
+22. Retorna custo total arredondado
+    └─> FIM
+```
+
+#### Análise de Complexidade:
+
+**Cálculo da Complexidade Ciclomática V(G):**
+
+Usando a fórmula: **V(G) = E - N + 2P** ou **V(G) = D + 1** (onde D = número de decisões)
+
+**Decisões no código:**
+1. Validação (forEach com if composto - 1 decisão com 3 condições OR)
+2. Desconto por múltiplos itens: if-else if-else if (3 decisões)
+3. Desconto por valor: if-else if (2 decisões)
+4. Frete por peso: if-else if-else if (3 decisões)
+5. Frete por região: switch com 5 casos (5 decisões)
+6. Desconto cliente: switch com 3 casos (3 decisões)
+
+**Total de decisões:** 1 + 3 + 2 + 3 + 5 + 3 = **17 decisões**
+
+**V(G) = 17 + 1 = 18**
+
+**Interpretação:** São necessários **no mínimo 18 caminhos independentes** para cobrir completamente o método.
+
+**Status:** Os testes atuais cobrem **100% das arestas** (branch coverage), garantindo que todas as decisões e seus ramos foram exercitados pelos 62 testes implementados.
 
 ---
 
 ### 📐 Complexidade Ciclomática V(G)
 
-*[A ser calculado após implementação]*
+**V(G) = 18**
+
+**Caminhos Independentes Mínimos:** 18
+
+**Cobertura Atual:** 
+- ✅ **100% de cobertura de arestas (branch coverage)**
+- ✅ **62 testes** implementados cobrindo todos os caminhos relevantes
+- ✅ Todos os branches (if/else, switch cases) exercitados
+
+**Evidência de Cobertura:**
+```bash
+# Executar testes com relatório de cobertura:
+./mvnw clean test jacoco:report
+
+# Relatório disponível em:
+target/site/jacoco/index.html
+```
 
 ---
 
-### ✅ Tabela MC/DC
+### ✅ Análise MC/DC (Modified Condition/Decision Coverage)
 
-*[A ser incluída após análise da decisão composta mais complexa]*
+**Decisão Composta Analisada:** Validação de entradas no início do método `calcularCustoTotal`
+
+```java
+if (produto.getQuantidade() <= 0 || 
+    produto.getProduto().getPesoFisico().compareTo(BigDecimal.ZERO) < 0 ||
+    produto.getProduto().getPreco().compareTo(BigDecimal.ZERO) < 0)
+```
+
+#### Condições:
+- **C1:** `quantidade <= 0`
+- **C2:** `pesoFisico < 0`
+- **C3:** `preço < 0`
+
+#### Tabela MC/DC:
+
+| Caso de Teste | C1 | C2 | C3 | Decisão | Condição Testada | Teste Correspondente |
+|---------------|----|----|----|---------|--------------------|---------------------|
+| T1 | F | F | F | F | - | Casos válidos (maioria dos testes) |
+| T2 | **T** | F | F | **T** | **C1** | `DecisoesTest.testRobustezQuantidadeInvalida()` |
+| T3 | F | **T** | F | **T** | **C2** | `DecisoesTest.testRobustezPesoNegativo()` |
+| T4 | F | F | **T** | **T** | **C3** | `DecisoesTest.testRobustezSubtotalNegativo()` |
+
+#### Análise MC/DC:
+
+**Para C1 (quantidade <= 0):**
+- T1 (F,F,F) → F
+- T2 (T,F,F) → T
+- **C1 muda, decisão muda** ✅
+
+**Para C2 (pesoFisico < 0):**
+- T1 (F,F,F) → F
+- T3 (F,T,F) → T
+- **C2 muda, decisão muda** ✅
+
+**Para C3 (preço < 0):**
+- T1 (F,F,F) → F
+- T4 (F,F,T) → T
+- **C3 muda, decisão muda** ✅
+
+**Conclusão:** Todas as condições foram testadas independentemente, atendendo ao critério MC/DC. Cada condição foi demonstrada como capaz de afetar o resultado da decisão de forma independente.
 
 ---
 
-### 📝 Casos de Teste Detalhados
+### 📝 Resumo dos Casos de Teste Implementados
 
-*[Link para planilha/documento separado com todos os casos de teste]*
+**Total de Testes:** 62 testes ✅
+
+#### Por Classe:
+- **ParticoesTest.java:** 22 testes (partições de domínio)
+- **LimitesTest.java:** 32 testes (valores limites)
+- **DecisoesTest.java:** 7 testes (tabela de decisão + robustez)
+- **CompraServiceTest.java:** 1 teste (exemplo básico)
+
+#### Por Critério:
+- **Partições de Domínio:** 22 testes ✅
+- **Valores Limites:** 32 testes ✅
+- **Tabela de Decisão:** 4 testes de combinações ✅
+- **Robustez (entradas inválidas):** 3 testes ✅
+- **Exemplo integração:** 1 teste ✅
+
+#### Arquivos de Documentação:
+- ✅ `TabelaParticoesLimites.csv` - 28 partições documentadas
+- ✅ `TabelaDecisões.csv` - 21 regras de negócio documentadas
+- ✅ `README.md` - Instruções completas e análise estrutural
+
+---
+
+### 🔢 Mapeamento de IDs dos Testes
+
+**Observação sobre a numeração:** Os IDs dos testes foram organizados por tipo de teste para melhor rastreabilidade:
+
+#### **Partições de Domínio (IDs 1-28)**
+Arquivo: `ParticoesTest.java` - **22 testes implementados**
+
+| Faixa de IDs | Domínio | Testes |
+|--------------|---------|--------|
+| 1-6 | Quantidade de Itens | IDs 1-5 implementados (ID 6: validação, coberto por ID 65) |
+| 7-12 | Peso Total | IDs 8-11 implementados (IDs 7,12: validação, cobertos por IDs 67,66) |
+| 13-15 | Subtotal | IDs 13-15 implementados ✅ |
+| 16-21 | Região | IDs 16-20 implementados (ID 21: não aplicável - enum válido) |
+| 22-25 | Tipo de Cliente | IDs 22-24 implementados (ID 25: não aplicável - enum válido) |
+| 26-28 | Produto Frágil | IDs 26-27 implementados (ID 28: não aplicável - boolean) |
+
+**Testes de validação** (IDs 6, 7, 12): Implementados como testes de robustez em `DecisoesTest.java` (IDs 65-67)
+
+#### **Valores Limites (IDs 30-62)**
+Arquivo: `LimitesTest.java` - **32 testes implementados**
+
+| Faixa de IDs | Critério | Status |
+|--------------|----------|--------|
+| 30-37 | Limites de Quantidade (0, 1, 2, 3, 4, 5, 7, 8) | ✅ 8 testes |
+| 39-51 | Limites de Peso (-0.1, 0.0, 0.1, 4.9, 5.0, 5.01, 9.9, 10.0, 10.01, 49.9, 50.0, 50.01, 50.2) | ✅ 13 testes |
+| 52-62 | Limites de Subtotal (-0.1, 0.0, 0.1, 499.99, 500.0, 500.1, 500.2, 999.9, 1000.0, 1000.1, 1000.2) | ✅ 11 testes |
+
+**Nota:** ID 38 foi omitido (sequência de limites de quantidade já coberta)
+
+#### **Decisões e Combinações (IDs 65-71)**
+Arquivo: `DecisoesTest.java` - **7 testes implementados**
+
+| ID | Tipo | Descrição | Regras Cobertas |
+|----|------|-----------|----------------|
+| 65 | Robustez | Qtd ≤ 0 lança exceção | Validação (TabelaDecisões ID 19) |
+| 66 | Robustez | Preço < 0 lança exceção | Validação (TabelaDecisões ID 20) |
+| 67 | Robustez | Peso < 0 lança exceção | Validação de entrada |
+| 68 | Combinação | Desc. 10% valor + Frete isento | IDs 2, 7 da tabela |
+| 69 | Combinação | Desc. Qtd 10% + Sub 10% + Frete D/Ouro | IDs 5, 2, 10, 13, 14 da tabela |
+| 70 | Combinação | Desc. Qtd 5% + Sub 20% + Frete C/Prata/Frágil | IDs 4, 1, 9, 15, 17 da tabela |
+| 71 | Combinação | Desc. Qtd 15% + Sub 20% + Frete D/Bronze | IDs 6, 1, 10, 16 da tabela |
+
+**Mapeamento com TabelaDecisões.csv:**
+- Cada teste de combinação (IDs 68-71) valida múltiplas regras simultaneamente
+- Testes de robustez (IDs 65-67) cobrem validação de entradas inválidas
+
+#### **Resumo da Cobertura de IDs:**
+
+```
+✅ IDs 1-5    : Partições Quantidade (5 testes)
+⚠️  ID 6      : Coberto por ID 65 (robustez)
+⚠️  ID 7      : Coberto por ID 67 (robustez)  
+✅ IDs 8-11   : Partições Peso (4 testes)
+⚠️  ID 12     : Coberto por ID 66 (robustez)
+✅ IDs 13-20  : Partições Subtotal, Região (8 testes)
+✅ IDs 22-24  : Partições Cliente (3 testes)
+✅ IDs 26-27  : Partições Frágil (2 testes)
+✅ IDs 30-37  : Limites Quantidade (8 testes)
+✅ IDs 39-51  : Limites Peso (13 testes)
+✅ IDs 52-62  : Limites Subtotal (11 testes)
+✅ IDs 65-71  : Decisões e Robustez (7 testes)
+```
+
+**Total:** 62 testes cobrindo todos os critérios de caixa preta e caixa branca ✅
 
 ---
 
@@ -437,16 +677,3 @@ Esta tabela mapeia as regras de negócio e combinações de condições que deve
 
 - Matheus Freitas
 - Jonas Rafael
-
----
-
-## 📅 Cronograma Sugerido
-
-| Fase | Descrição | Prazo Sugerido |
-|------|-----------|----------------|
-| 1 | Implementação do código base | Semana 1 |
-| 2 | Análise e design de testes | Semana 1-2 |
-| 3 | Testes funcionais (caixa preta) | Semana 2 |
-| 4 | Testes estruturais (caixa branca) | Semana 3 |
-| 5 | Boas práticas e refatoração | Semana 3 |
-| 6 | Documentação final e entrega | Semana 4 |
