@@ -16,11 +16,6 @@
 - [Como Verificar a Cobertura](#como-verificar-a-cobertura)
 - [Documentação dos Casos de Teste](#documentação-dos-casos-de-teste)
 
-### 📄 Documentos Importantes
-- **[RESUMO_EXECUTIVO.md](RESUMO_EXECUTIVO.md)** - Visão geral do progresso e estimativas
-- **[BUGS_E_PENDENCIAS.md](BUGS_E_PENDENCIAS.md)** - Guia detalhado para correção de bugs
-- **[Enunciado.md](Enunciado.md)** - Especificação completa do trabalho
-
 ---
 
 ## 🎯 Sobre o Projeto
@@ -38,11 +33,9 @@ Este projeto implementa testes automatizados para a funcionalidade de **finaliza
 | **Fase 1: Implementação** | 🟢 Completo | 100% | ✅ Todos os bugs corrigidos! |
 | **Fase 2: Análise de Testes** | 🟢 Completo | 100% | ✅ Partições e limites identificados! |
 | **Fase 3: Testes Funcionais** | 🟢 Completo | 100% | ✅ Todas as classes de teste criadas! |
-| **Fase 4: Testes Estruturais** | � Completo | 100% | ✅ CFG, V(G) e MC/DC documentados! |
+| **Fase 4: Testes Estruturais** | 🟢 Completo | 100% | ✅ CFG, V(G) e MC/DC documentados! |
 | **Fase 5: Boas Práticas** | 🟢 Completo | 100% | ✅ Boas práticas aplicadas! |
-| **Fase 6: Documentação** | � Completo | 100% | ✅ Documentação completa! |
-
-**Legenda:** 🟢 Completo | 🔶 Em Progresso | ⚪ Não Iniciado | 🔴 Bloqueado
+| **Fase 6: Documentação** | 🟢 Completo | 100% | ✅ Documentação completa! |
 
 ---
 
@@ -51,9 +44,9 @@ Este projeto implementa testes automatizados para a funcionalidade de **finaliza
   - ✅ Método `calcularCustoTotal` implementado
   - ✅ Cálculo de subtotal dos itens
   - ✅ Desconto por múltiplos itens do mesmo tipo (3-4: 5%, 5-7: 10%, 8+: 15%)
-  - ✅ **CORRIGIDO**: Desconto por valor de carrinho (>R$500: 10%, >R$1000: 20%)
+  - ✅ Desconto por valor de carrinho (>R$500: 10%, >R$1000: 20%)
   - ✅ Cálculo de peso tributável (máximo entre físico e volumétrico)
-  - ✅ **CORRIGIDO**: Cálculo de frete por faixas de peso (bug corrigido)
+  - ✅ Cálculo de frete por faixas de peso (bug corrigido)
   - ✅ Taxa mínima de frete (R$ 12,00)
   - ✅ Taxa de manuseio para produtos frágeis (R$ 5,00/item)
   - ✅ Multiplicador por região (Sudeste: 1.0, Sul: 1.05, Nordeste: 1.1, Centro-Oeste: 1.2, Norte: 1.3)
@@ -103,14 +96,6 @@ Este projeto implementa testes automatizados para a funcionalidade de **finaliza
 2. ✅ **Renumerar IDs dos testes** - ✅ Concluído: IDs 1-61 (sequencial, sem gaps)
 3. ⏳ **Compactar projeto em .zip** - Nome do arquivo: MatheusFreitas-JonasRafael.zip
 4. ⏳ **Submeter no SIGAA** - Enviar arquivo .zip
-
-### 🔧 Próximos Passos Recomendados
-
-**ÚLTIMOS PASSOS PARA FINALIZAR (para a entrega):**
-1. ✅ **Renomear projeto** - ✅ CONCLUÍDO: `artifactId` no `pom.xml` alterado para: `MatheusFreitas-JonasRafael`
-2. ✅ **Renumerar IDs** - ✅ CONCLUÍDO: Todos os IDs agora são sequenciais (1-61, sem gaps)
-3. ⏳ **Compactar em .zip** - Nome: `MatheusFreitas-JonasRafael.zip`
-4. ⏳ **Submeter no SIGAA**
 
 **JÁ CONCLUÍDO:**
 - ✅ Implementação completa (100%)
@@ -248,70 +233,134 @@ xdg-open target/site/jacoco/index.html
 
 ## 📚 Documentação dos Casos de Teste
 
-### 📊 Tabela de Partições e Valores Limites
+### 📊 Partições de Domínio (ParticoesTest.java)
 
-Esta tabela identifica as partições de domínio e valores limites para cada variável de entrada do método `calcularCustoTotal`.
+Esta tabela documenta os **22 testes de partições** implementados em `ParticoesTest.java` (IDs 1-22).
 
-| ID | Domínio | Partição | Valor | Tipo | Critério | Justificativa |
-|----|---------|----------|-------|------|----------|---------------|
-| 1 | Quantidade de Itens | Qtd = 0 | 0 | Inválido | Limite inferior | Carrinho vazio não deve gerar compra |
-| 2 | Quantidade de Itens | Qtd = 1–2 | 1 | Válido | Partição normal | Sem desconto por tipo |
-| 3 | Quantidade de Itens | Qtd = 3–4 | 3 | Válido | Partição desconto 5% | Aplica 5% de desconto |
-| 4 | Quantidade de Itens | Qtd = 5–7 | 5 | Válido | Partição desconto 10% | Aplica 10% de desconto |
-| 5 | Quantidade de Itens | Qtd ≥ 8 | 8 | Válido | Partição desconto 15% | Aplica 15% de desconto |
-| 6 | Quantidade de Itens | Qtd negativa | -1 | Inválido | Limite inválido | Quantidade não pode ser negativa |
-| 7 | Peso Total (kg) | peso < 0 | -0.1 | Inválido | Limite inferior | Peso não pode ser negativo |
-| 8 | Peso Total (kg) | 0 ≤ peso ≤ 5 | 5 | Válido | Faixa A | Isento de frete |
-| 9 | Peso Total (kg) | 5 < peso ≤ 10 | 5.1 | Válido | Faixa B | R$ 2,00/kg + taxa mínima R$12,00 |
-| 10 | Peso Total (kg) | 10 < peso ≤ 50 | 10.1 | Válido | Faixa C | R$ 4,00/kg + taxa mínima R$12,00 |
-| 11 | Peso Total (kg) | peso > 50 | 50.1 | Válido | Faixa D | R$ 7,00/kg + taxa mínima R$12,00 |
-| 12 | Subtotal (R$) | subtotal ≤ 0 | 0 | Inválido | Limite inferior | Valor total deve ser positivo |
-| 13 | Subtotal (R$) | 0 < subtotal ≤ 500 | 499 | Válido | Sem desconto | Não há desconto por valor |
-| 14 | Subtotal (R$) | 500 < subtotal ≤ 1000 | 500.01 | Válido | Desconto 10% | Aplica 10% de desconto |
-| 15 | Subtotal (R$) | subtotal > 1000 | 1001 | Válido | Desconto 20% | Aplica 20% de desconto |
-| 16 | Região | Sudeste | Sudeste | Válido | Multiplicador 1.00 | Frete base |
-| 17 | Região | Sul | Sul | Válido | Multiplicador 1.05 | Frete +5% |
-| 18 | Região | Nordeste | Nordeste | Válido | Multiplicador 1.10 | Frete +10% |
-| 19 | Região | Centro-Oeste | Centro-Oeste | Válido | Multiplicador 1.20 | Frete +20% |
-| 20 | Região | Norte | Norte | Válido | Multiplicador 1.30 | Frete +30% |
-| 21 | Região | Inválida | Desconhecida | Inválido | Entrada inválida | Região não cadastrada |
-| 22 | Tipo de Cliente | Ouro | Ouro | Válido | Desconto 100% frete | Frete zerado |
-| 23 | Tipo de Cliente | Prata | Prata | Válido | Desconto 50% frete | Metade do valor do frete |
-| 24 | Tipo de Cliente | Bronze | Bronze | Válido | Sem desconto frete | Paga frete integral |
-| 25 | Tipo de Cliente | Inválido | Platina | Inválido | Entrada inválida | Nível de fidelidade inexistente |
-| 26 | Frágil | Sim | True | Válido | Taxa adicional R$5,00/unidade | Item requer manuseio especial |
-| 27 | Frágil | Não | False | Válido | Sem taxa adicional | Item comum |
-| 28 | Frágil | Valor inválido | Talvez | Inválido | Entrada inválida | Campo deve ser booleano (T/F) |
+| ID | Domínio | Partição | Valor Testado | Classe de Teste | Nome do Método |
+|----|---------|----------|---------------|-----------------|----------------|
+| 1 | Quantidade | Qtd = 0 | 0 itens | ParticoesTest | `testQtd0SemItens()` |
+| 2 | Quantidade | Qtd = 1-2 | 1 item | ParticoesTest | `testQtd1A2SemDesconto()` |
+| 3 | Quantidade | Qtd = 3-4 | 3 itens | ParticoesTest | `testQtd3A4ComDesconto5Porcento()` |
+| 4 | Quantidade | Qtd = 5-7 | 5 itens | ParticoesTest | `testQtd5A7ComDesconto10Porcento()` |
+| 5 | Quantidade | Qtd ≥ 8 | 8 itens | ParticoesTest | `testQtd8OuMaisComDesconto15Porcento()` |
+| 6 | Peso Total | 0 ≤ peso ≤ 5kg | 3kg | ParticoesTest | `testPeso0A5KgFreteIsento()` |
+| 7 | Peso Total | 5 < peso ≤ 10kg | 7kg | ParticoesTest | `testPeso5A10KgFaixaB()` |
+| 8 | Peso Total | 10 < peso ≤ 50kg | 20kg | ParticoesTest | `testPeso10A50KgFaixaC()` |
+| 9 | Peso Total | peso > 50kg | 60kg | ParticoesTest | `testPesoAcima50KgFaixaD()` |
+| 10 | Subtotal | subtotal ≤ R$500 | R$400 | ParticoesTest | `testSubtotalAte500SemDesconto()` |
+| 11 | Subtotal | R$500 < subtotal ≤ R$1000 | R$700 | ParticoesTest | `testSubtotal500A1000ComDesconto10Porcento()` |
+| 12 | Subtotal | subtotal > R$1000 | R$1500 | ParticoesTest | `testSubtotalAcima1000ComDesconto20Porcento()` |
+| 13 | Região | Sudeste | Sudeste | ParticoesTest | `testRegiaoSudeste()` |
+| 14 | Região | Sul | Sul | ParticoesTest | `testRegiaoSul()` |
+| 15 | Região | Nordeste | Nordeste | ParticoesTest | `testRegiaoNordeste()` |
+| 16 | Região | Centro-Oeste | Centro-Oeste | ParticoesTest | `testRegiaoCentroOeste()` |
+| 17 | Região | Norte | Norte | ParticoesTest | `testRegiaoNorte()` |
+| 18 | Tipo Cliente | Ouro | Ouro | ParticoesTest | `testClienteOuro()` |
+| 19 | Tipo Cliente | Prata | Prata | ParticoesTest | `testClientePrata()` |
+| 20 | Tipo Cliente | Bronze | Bronze | ParticoesTest | `testClienteBronze()` |
+| 21 | Produto Frágil | Sim | true | ParticoesTest | `testProdutoFragil()` |
+| 22 | Produto Frágil | Não | false | ParticoesTest | `testProdutoNaoFragil()` |
+
+**Total:** 22 testes de partições ✅
 
 ---
 
-### 🎯 Tabela de Decisão - Casos de Teste
+### 📏 Valores Limites (LimitesTest.java)
 
-Esta tabela mapeia as regras de negócio e combinações de condições que devem ser testadas.
+Esta tabela documenta os **32 testes de valores limites** implementados em `LimitesTest.java` (IDs 23-54).
 
-| ID | Condição / Regra | Entrada de Exemplo | Ação Esperada | Resultado Esperado |
-|----|------------------|-------------------|---------------|-------------------|
-| 1 | Subtotal > 1000 | Subtotal = 1200 | Aplica desconto de 20% | Subtotal final = 1200 × 0.8 = 960,00 |
-| 2 | 500 < Subtotal ≤ 1000 | Subtotal = 700 | Aplica desconto de 10% | Subtotal final = 700 × 0.9 = 630,00 |
-| 3 | Subtotal ≤ 500 | Subtotal = 400 | Nenhum desconto aplicado | Subtotal final = 400,00 |
-| 4 | 3–4 itens do mesmo tipo | Qtd = 3 | Aplica desconto de 5% sobre o subtotal do tipo | Subtotal tipo = subtotal × 0.95 |
-| 5 | 5–7 itens do mesmo tipo | Qtd = 5 | Aplica desconto de 10% sobre o subtotal do tipo | Subtotal tipo = subtotal × 0.90 |
-| 6 | ≥8 itens do mesmo tipo | Qtd = 8 | Aplica desconto de 15% sobre o subtotal do tipo | Subtotal tipo = subtotal × 0.85 |
-| 7 | Peso ≤ 5 kg | Peso = 5 | Frete isento | Frete = 0,00 |
-| 8 | 5 < Peso ≤ 10 kg | Peso = 6 | Frete = R$2,00/kg + taxa mínima R$12,00 | Frete = (6×2)+12 = 24,00 |
-| 9 | 10 < Peso ≤ 50 kg | Peso = 20 | Frete = R$4,00/kg + taxa mínima R$12,00 | Frete = (20×4)+12 = 92,00 |
-| 10 | Peso > 50 kg | Peso = 60 | Frete = R$7,00/kg + taxa mínima R$12,00 | Frete = (60×7)+12 = 432,00 |
-| 11 | Região = Sudeste | Sudeste | Multiplica frete × 1.00 | Frete sem alteração |
-| 12 | Região = Norte | Norte | Multiplica frete × 1.30 | Frete aumenta 30% |
-| 13 | Região = Nordeste | Nordeste | Multiplica frete × 1.10 | Frete aumenta 10% |
-| 14 | Cliente Ouro | Ouro | Desconto de 100% sobre o frete | Frete final = 0,00 |
-| 15 | Cliente Prata | Prata | Desconto de 50% sobre o frete | Frete final = frete × 0.5 |
-| 16 | Cliente Bronze | Bronze | Sem desconto sobre o frete | Frete final = frete |
-| 17 | Item frágil = Sim | Sim | Soma R$5,00 × quantidade ao frete | Frete += 5×qtd |
-| 18 | Item frágil = Não | Não | Sem taxa adicional | Frete inalterado |
-| 19 | Quantidade ≤ 0 | Qtd = 0 | Entrada inválida | Lança exceção (assertThrows) |
-| 20 | Preço unitário < 0 | Preço = -10 | Entrada inválida | Lança exceção (assertThrows) |
-| 21 | Cliente nulo | Cliente = null | Entrada inválida | Lança exceção (assertThrows) |
+#### Limites de Quantidade (IDs 23-30)
+
+| ID | Valor Limite | Descrição | Nome do Método |
+|----|--------------|-----------|----------------|
+| 23 | Qtd ≤ 0 | Lança exceção | `testQtdLimite0Invalido()` |
+| 24 | Qtd = 1 | Mínimo válido (0% desc.) | `testQtdLimite1NenhumDesconto()` |
+| 25 | Qtd = 2 | Máximo 0% desconto | `testQtdLimite2NenhumDesconto()` |
+| 26 | Qtd = 3 | Mínimo 5% desconto | `testQtdLimite3ComDesconto5Porcento()` |
+| 27 | Qtd = 4 | Máximo 5% desconto | `testQtdLimite4ComDesconto5Porcento()` |
+| 28 | Qtd = 5 | Mínimo 10% desconto | `testQtdLimite5ComDesconto10Porcento()` |
+| 29 | Qtd = 7 | Máximo 10% desconto | `testQtdLimite7ComDesconto10Porcento()` |
+| 30 | Qtd = 8 | Mínimo 15% desconto | `testQtdLimite8ComDesconto15Porcento()` |
+
+#### Limites de Peso (IDs 31-43)
+
+| ID | Valor Limite | Descrição | Nome do Método |
+|----|--------------|-----------|----------------|
+| 31 | Peso < 0 | Lança exceção | `testRobustezPesoNegativo()` |
+| 32 | Peso = 0.00kg | Mínimo válido (isento) | `testLimitePeso0KgIsento()` |
+| 33 | Peso = 0.1kg | MIN+ Faixa A | `testLimitePeso0Ponto1KgIsento()` |
+| 34 | Peso = 4.9kg | MAX- Faixa A | `testLimitePeso4Ponto9KgIsento()` |
+| 35 | Peso = 5.00kg | MAX Faixa A | `testLimitePeso5KgIsento()` |
+| 36 | Peso = 5.01kg | MIN Faixa B | `testLimitePeso5Ponto01KgComFrete()` |
+| 37 | Peso = 9.9kg | MAX- Faixa B | `testLimitePeso9Ponto9Kg()` |
+| 38 | Peso = 10.00kg | MAX Faixa B | `testLimitePeso10Kg()` |
+| 39 | Peso = 10.01kg | MIN Faixa C | `testLimitePeso10Ponto01Kg()` |
+| 40 | Peso = 49.9kg | MAX- Faixa C | `testLimitePeso49Ponto9Kg()` |
+| 41 | Peso = 50.00kg | MAX Faixa C | `testLimitePeso50Kg()` |
+| 42 | Peso = 50.01kg | MIN Faixa D | `testLimitePeso50Ponto01Kg()` |
+| 43 | Peso = 50.2kg | MIN+ Faixa D | `testLimitePeso50Ponto2Kg()` |
+
+#### Limites de Subtotal (IDs 44-54)
+
+| ID | Valor Limite | Descrição | Nome do Método |
+|----|--------------|-----------|----------------|
+| 44 | Subtotal < 0 | Lança exceção | `testRobustezSubtotalNegativo()` |
+| 45 | Subtotal = R$0.00 | Mínimo válido | `testLimiteSubtotal0SemDesconto()` |
+| 46 | Subtotal = R$0.10 | MIN+ sem desconto | `testLimiteSubtotal0Ponto1SemDesconto()` |
+| 47 | Subtotal = R$499.99 | MAX- 0% desc. | `testLimiteSubtotal499Ponto99SemDesconto()` |
+| 48 | Subtotal = R$500.00 | MAX 0% desc. | `testLimiteSubtotal500ComDesconto10Porcento()` |
+| 49 | Subtotal = R$500.10 | MIN+ 10% desc. | `testLimiteSubtotal500Ponto1ComDesconto10Porcento()` |
+| 50 | Subtotal = R$500.20 | MIN++ 10% desc. | `testLimiteSubtotal500Ponto2ComDesconto10Porcento()` |
+| 51 | Subtotal = R$999.90 | MAX- 10% desc. | `testLimiteSubtotal999Ponto9ComDesconto10Porcento()` |
+| 52 | Subtotal = R$1000.00 | MAX 10% desc. | `testLimiteSubtotal1000ComDesconto10Porcento()` |
+| 53 | Subtotal = R$1000.10 | MIN 20% desc. | `testLimiteSubtotal1000Ponto1ComDesconto20Porcento()` |
+| 54 | Subtotal = R$1000.20 | MIN+ 20% desc. | `testLimiteSubtotal1000Ponto2ComDesconto20Porcento()` |
+
+**Total:** 32 testes de limites ✅
+
+---
+
+### 🎯 Decisões e Combinações (DecisoesTest.java)
+
+Esta tabela documenta os **7 testes de decisão** implementados em `DecisoesTest.java` (IDs 55-61).
+
+#### Testes de Robustez (IDs 55-57)
+
+| ID | Tipo | Condição Testada | Resultado Esperado | Nome do Método |
+|----|------|------------------|-------------------|----------------|
+| 55 | Robustez | Quantidade ≤ 0 | Lança `IllegalArgumentException` | `testRobustezQuantidadeInvalida()` |
+| 56 | Robustez | Preço < 0 | Lança `IllegalArgumentException` | `testRobustezSubtotalNegativo()` |
+| 57 | Robustez | Peso < 0 | Lança `IllegalArgumentException` | `testRobustezPesoNegativo()` |
+
+#### Testes de Combinações Complexas (IDs 58-61)
+
+| ID | Tipo | Cenário | Regras Aplicadas | Nome do Método |
+|----|------|---------|------------------|----------------|
+| 58 | Combinação | Qtd=1, Sub=R$600, Peso=3kg, Bronze, Sudeste | Desc. 10% valor + Frete isento | `testCombinacaoBasica()` |
+| 59 | Combinação | Qtd=6, Sub=R$600, Peso=51kg, Ouro, Nordeste | Desc. Qtd 10% + Desc. Sub 10% + Frete zerado (Ouro) | `testComplexoFaixaDOuroNordeste()` |
+| 60 | Combinação | Qtd=4, Sub=R$1500, Peso=20kg, Prata, Sul, Frágil | Desc. Qtd 5% + Desc. Sub 20% + Frete Faixa C + Taxa Frágil + Mult. Sul + Desc. Prata 50% | `testComplexoPrataFragemFaixaC()` |
+| 61 | Combinação | Qtd=9, Sub=R$1350, Peso=54kg, Bronze, Centro-Oeste | Desc. Qtd 15% + Desc. Sub 20% + Frete Faixa D + Mult. Centro-Oeste + Sem desc. frete | `testMaximoDescontoEFrete()` |
+
+**Total:** 7 testes de decisões ✅
+
+---
+
+### 📋 Resumo Geral dos Testes Implementados
+
+| Arquivo | IDs | Quantidade | Tipo de Teste |
+|---------|-----|------------|---------------|
+| `ParticoesTest.java` | 1-22 | 22 testes | Partições de Domínio |
+| `LimitesTest.java` | 23-54 | 32 testes | Valores Limites |
+| `DecisoesTest.java` | 55-61 | 7 testes | Decisões e Robustez |
+| **TOTAL** | **1-61** | **61 testes** | **Todos os critérios** ✅ |
+
+**Cobertura Alcançada:**
+- ✅ 100% de cobertura de arestas (branch coverage)
+- ✅ Todas as partições de domínio cobertas
+- ✅ Todos os valores limites críticos testados
+- ✅ Todas as combinações complexas validadas
+- ✅ Todos os casos de robustez implementados
 
 ---
 
