@@ -69,7 +69,8 @@ Este projeto implementa testes automatizados para a funcionalidade de **finaliza
   - ✅ Classe `ParticoesTest.java` criada com 22 testes
   - ✅ Classe `LimitesTest.java` criada com 32 testes
   - ✅ Classe `DecisoesTest.java` criada com 7 testes (incluindo 3 testes de robustez)
-  - ✅ Total: **62 testes funcionais** - todos passando ✅
+  - ✅ Total: **61 testes funcionais** - todos passando ✅
+  - ✅ IDs renumerados sequencialmente: 1-61 (sem gaps)
 
 - **Fase 5 - Boas Práticas**: ✅ 100% completo
   - ✅ `@BeforeEach` usado para inicialização
@@ -86,6 +87,7 @@ Este projeto implementa testes automatizados para a funcionalidade de **finaliza
   - ✅ CFG (Grafo de Fluxo de Controle) documentado no README
   - ✅ Complexidade Ciclomática V(G) = 18 calculada e documentada
   - ✅ Análise MC/DC documentada para decisão composta de validação
+  - ✅ 61 testes implementados cobrindo todos os caminhos
 
 - **Fase 6 - Documentação Final**: ✅ 100% completo
   - ✅ Instruções de execução no README
@@ -93,159 +95,33 @@ Este projeto implementa testes automatizados para a funcionalidade de **finaliza
   - ✅ Tabela de Decisão criada (`TabelaDecisões.csv`)
   - ✅ CFG e V(G) adicionados ao README
   - ✅ Tabela MC/DC criada no README
-  - ⏳ `artifactId` no `pom.xml` precisa ser renomeado para padrão de entrega (nome1-nome2)
+  - ✅ `artifactId` no `pom.xml` renomeado para `MatheusFreitas-JonasRafael`
+  - ✅ IDs dos testes renumerados sequencialmente (1-61, sem gaps)
 
 ### ⏳ Pendente para Entrega Final
-1. **Renomear artifactId no pom.xml** - Usar padrão: MatheusFreitas-JonasRafael (ou nomes dos integrantes)
-2. **Compactar projeto em .zip** - Nome do arquivo: MatheusFreitas-JonasRafael.zip
-3. **Submeter no SIGAA** - Enviar arquivo .zip
+1. ✅ **Renomear artifactId no pom.xml** - ✅ Concluído: `MatheusFreitas-JonasRafael`
+2. ✅ **Renumerar IDs dos testes** - ✅ Concluído: IDs 1-61 (sequencial, sem gaps)
+3. ⏳ **Compactar projeto em .zip** - Nome do arquivo: MatheusFreitas-JonasRafael.zip
+4. ⏳ **Submeter no SIGAA** - Enviar arquivo .zip
 
 ### 🔧 Próximos Passos Recomendados
 
 **ÚLTIMOS PASSOS PARA FINALIZAR (para a entrega):**
-1. ⏳ **Renomear projeto** - Alterar `artifactId` no `pom.xml` para: `MatheusFreitas-JonasRafael`
-2. ⏳ **Compactar em .zip** - Nome: `MatheusFreitas-JonasRafael.zip`
-3. ⏳ **Submeter no SIGAA**
+1. ✅ **Renomear projeto** - ✅ CONCLUÍDO: `artifactId` no `pom.xml` alterado para: `MatheusFreitas-JonasRafael`
+2. ✅ **Renumerar IDs** - ✅ CONCLUÍDO: Todos os IDs agora são sequenciais (1-61, sem gaps)
+3. ⏳ **Compactar em .zip** - Nome: `MatheusFreitas-JonasRafael.zip`
+4. ⏳ **Submeter no SIGAA**
 
 **JÁ CONCLUÍDO:**
 - ✅ Implementação completa (100%)
 - ✅ Análise de testes (100%)
-- ✅ Testes funcionais (62 testes passando)
+- ✅ Testes funcionais (61 testes passando)
 - ✅ Testes estruturais (CFG, V(G), MC/DC)
 - ✅ Boas práticas aplicadas
 - ✅ Documentação completa no README
 - ✅ Tabelas CSV criadas
-
----
-
-## 🔢 Ordem de Implementação
-
-### **Fase 1: Implementação do Código Base** 
-*Esforço: Alto | Importância: Crítica | Prioridade: 1*
-
-- [x] **1.1** Implementar o método `calcularCustoTotal` no `CompraService` ✅ **CONCLUÍDO**
-  - [x] Implementar cálculo do subtotal dos itens
-  - [x] Implementar desconto por múltiplos itens do mesmo tipo
-  - [x] Desconto por valor de carrinho (>R$500: 10%, >R$1000: 20%)
-  - [x] Implementar cálculo do peso tributável (físico vs cúbico)
-  - [x] Cálculo do frete base por faixas de peso
-  - [x] Implementar taxa mínima de frete (R$ 12,00)
-  - [x] Implementar taxa de manuseio para itens frágeis
-  - [x] Implementar multiplicador por região
-  - [x] Implementar desconto de frete por nível do cliente
-  - [x] Implementar arredondamento final (half-up, 2 casas decimais)
-
-### **Fase 2: Análise de Requisitos e Design de Testes**
-*Esforço: Médio | Importância: Crítica | Prioridade: 2*
-
-- [ ] **2.1** Análise de Partições de Domínio (Caixa Preta)
-  - Identificar partições para quantidade de itens
-  - Identificar partições para peso (físico e cúbico)
-  - Identificar partições para valor do carrinho
-  - Identificar partições para tipo de cliente (Bronze/Prata/Ouro)
-  - Identificar partições para região (Sudeste/Sul/Nordeste/Centro-Oeste/Norte)
-  - Identificar partições para tipos de produto
-  - Identificar partições para produtos frágeis vs não-frágeis
-
-- [ ] **2.2** Análise de Valores Limites (Caixa Preta)
-  - Definir limites para desconto por múltiplos itens (3, 4, 5, 7, 8)
-  - Definir limites para desconto por valor (R$ 500,00, R$ 1000,00)
-  - Definir limites para faixas de peso (5kg, 10kg, 50kg)
-  - Definir limites para cálculo de peso cúbico
-
-- [ ] **2.3** Criar Tabela de Decisão (Caixa Preta)
-  - Mapear condições: valor do carrinho, quantidade de itens por tipo, peso total, nível do cliente, região
-  - Definir ações/resultados para cada combinação de regras
-  - Identificar regras de negócio complexas
-
-- [ ] **2.4** Análise Estrutural (Caixa Branca)
-  - Desenhar o **Grafo de Fluxo de Controle (CFG)** do método `calcularCustoTotal`
-  - Calcular a **Complexidade Ciclomática V(G)**
-  - Identificar caminhos independentes (≥ V(G))
-  - Identificar a decisão composta mais complexa para análise MC/DC
-
-### **Fase 3: Implementação dos Testes Funcionais (Caixa Preta)**
-*Esforço: Alto | Importância: Alta | Prioridade: 3*
-
-- [ ] **3.1** Criar classe `CompraServiceTestParticoes.java`
-  - Implementar testes para cada partição identificada
-  - Usar `@DisplayName` ou nomenclatura descritiva
-  - Adicionar mensagens de falha com `.as("descrição")`
-  - Documentar casos na planilha/tabela
-
-- [ ] **3.2** Criar classe `CompraServiceTestLimites.java`
-  - Implementar testes para valores limites (on-point, off-point)
-  - Testar valores exatamente nos limites e adjacentes
-  - Documentar casos na planilha/tabela
-
-- [ ] **3.3** Criar classe `CompraServiceTestTabelaDecisao.java`
-  - Implementar testes para cada regra da tabela de decisão
-  - Garantir cobertura de todas as combinações relevantes
-  - Documentar casos na planilha/tabela
-
-- [ ] **3.4** Criar testes de validação e robustez
-  - Testar quantidade ≤ 0
-  - Testar preços negativos
-  - Testar cliente nulo
-  - Testar carrinho vazio ou nulo
-  - Usar `assertThrows` para exceções esperadas
-
-### **Fase 4: Implementação dos Testes Estruturais (Caixa Branca)**
-*Esforço: Alto | Importância: Alta | Prioridade: 4*
-
-- [ ] **4.1** Atingir 100% de cobertura de arestas (branch coverage)
-  - Executar testes com coverage
-  - Identificar branches não cobertos
-  - Criar testes adicionais para cobrir todos os branches
-
-- [ ] **4.2** Implementar testes MC/DC
-  - Criar testes para a decisão composta mais complexa
-  - Demonstrar que cada condição individual influencia o resultado
-  - Documentar tabela "decisão × condições × casos de teste" no README
-
-- [ ] **4.3** Validar caminhos independentes
-  - Garantir que V(G) caminhos independentes são cobertos
-  - Documentar no README a relação entre casos de teste e caminhos
-
-### **Fase 5: Boas Práticas e Refatoração**
-*Esforço: Médio | Importância: Média | Prioridade: 5*
-
-- [ ] **5.1** Aplicar boas práticas
-  - Usar `@BeforeEach` para inicialização comum
-  - Declarar constantes para valores mágicos
-  - Usar AssertJ para comparar `BigDecimal`
-  - Aplicar **JUnit 5 Parameterized Tests** onde adequado
-
-- [ ] **5.2** Revisar nomenclatura e organização
-  - Validar nomes descritivos de métodos de teste
-  - Organizar imports e estrutura de classes
-  - Adicionar comentários quando necessário
-
-### **Fase 6: Documentação Final**
-*Esforço: Médio | Importância: Alta | Prioridade: 6*
-
-- [ ] **6.1** Completar o README.md
-  - Instruções de como executar o projeto
-  - Instruções de como executar os testes
-  - Instruções de como verificar cobertura
-  - Incluir CFG, V(G) e análise de caminhos
-  - Incluir tabela MC/DC
-
-- [ ] **6.2** Criar planilha/documento de casos de teste
-  - Colunas: ID, Entrada, Resultado Esperado, Critério Coberto
-  - Incluir todos os casos de teste (partições, limites, decisão)
-  - Relacionar cada teste com o critério correspondente
-
-- [ ] **6.3** Validação final
-  - Executar todos os testes
-  - Verificar cobertura de 100% de arestas
-  - Revisar documentação
-  - Renomear projeto no `pom.xml` (artifactId)
-
-- [ ] **6.4** Preparar entrega
-  - Compactar projeto em formato .zip
-  - Validar que todos os arquivos necessários estão incluídos
-  - Nomear arquivo seguindo padrão: nome1-nome2.zip
+- ✅ `artifactId` renomeado para `MatheusFreitas-JonasRafael`
+- ✅ IDs renumerados sequencialmente (1-61)
 
 ---
 
@@ -307,20 +183,21 @@ Este projeto implementa testes automatizados para a funcionalidade de **finaliza
 
 ### 🚀 Entrega
 
-- [ ] `artifactId` no `pom.xml` renomeado (padrão: nome1-nome2)
-- [x] Todos os testes executam com sucesso ✅ (62/62 passando)
+- [x] `artifactId` no `pom.xml` renomeado (padrão: MatheusFreitas-JonasRafael) ✅
+- [x] IDs dos testes renumerados sequencialmente (1-61, sem gaps) ✅
+- [x] Todos os testes executam com sucesso ✅ (61/61 passando)
 - [x] Cobertura verificada e documentada ✅
 - [ ] Projeto compactado em .zip
-- [ ] Nome do arquivo .zip segue padrão (nome1-nome2.zip)
+- [ ] Nome do arquivo .zip segue padrão (MatheusFreitas-JonasRafael.zip)
 - [ ] Pronto para envio no SIGAA
 
-**Progresso Total:** 51/54 itens completos **(94% concluído)**
+**Progresso Total:** 53/56 itens completos **(95% concluído)**
 
 ### 📋 Itens Restantes para Finalizar a Entrega:
 
-1. ⏳ **Renomear `artifactId` no `pom.xml`** para seguir padrão: `nome1-nome2`
-2. ⏳ **Compactar projeto em .zip** com nome: `nome1-nome2.zip`
-3. ⏳ **Revisar documentação final** antes da submissão
+1. ⏳ **Compactar projeto em .zip** com nome: `MatheusFreitas-JonasRafael.zip`
+2. ⏳ **Revisar documentação final** antes da submissão
+3. ⏳ **Submeter no SIGAA**
 
 ---
 
@@ -523,7 +400,7 @@ Usando a fórmula: **V(G) = E - N + 2P** ou **V(G) = D + 1** (onde D = número d
 
 **Cobertura Atual:** 
 - ✅ **100% de cobertura de arestas (branch coverage)**
-- ✅ **62 testes** implementados cobrindo todos os caminhos relevantes
+- ✅ **61 testes** implementados cobrindo todos os caminhos relevantes
 - ✅ Todos os branches (if/else, switch cases) exercitados
 
 **Evidência de Cobertura:**
@@ -608,68 +485,62 @@ if (produto.getQuantidade() <= 0 ||
 
 ### 🔢 Mapeamento de IDs dos Testes
 
-**Observação sobre a numeração:** Os IDs dos testes foram organizados por tipo de teste para melhor rastreabilidade:
+**Observação sobre a numeração:** Os IDs dos testes foram renumerados sequencialmente de **1 a 61** (sem gaps) para melhor organização e rastreabilidade.
 
-#### **Partições de Domínio (IDs 1-28)**
+#### **Partições de Domínio (IDs 1-22)**
 Arquivo: `ParticoesTest.java` - **22 testes implementados**
 
-| Faixa de IDs | Domínio | Testes |
-|--------------|---------|--------|
-| 1-6 | Quantidade de Itens | IDs 1-5 implementados (ID 6: validação, coberto por ID 65) |
-| 7-12 | Peso Total | IDs 8-11 implementados (IDs 7,12: validação, cobertos por IDs 67,66) |
-| 13-15 | Subtotal | IDs 13-15 implementados ✅ |
-| 16-21 | Região | IDs 16-20 implementados (ID 21: não aplicável - enum válido) |
-| 22-25 | Tipo de Cliente | IDs 22-24 implementados (ID 25: não aplicável - enum válido) |
-| 26-28 | Produto Frágil | IDs 26-27 implementados (ID 28: não aplicável - boolean) |
+| Faixa de IDs | Domínio | Descrição |
+|--------------|---------|-----------|
+| 1-5 | Quantidade de Itens | Partições: 0, 1-2, 3-4, 5-7, ≥8 itens |
+| 6-9 | Peso Total | Partições: ≤5kg, 5-10kg, 10-50kg, >50kg |
+| 10-12 | Subtotal | Partições: ≤R$500, R$500-1000, >R$1000 |
+| 13-17 | Região | Partições: Sudeste, Sul, Nordeste, Centro-Oeste, Norte |
+| 18-20 | Tipo de Cliente | Partições: Ouro, Prata, Bronze |
+| 21-22 | Produto Frágil | Partições: Sim, Não |
 
-**Testes de validação** (IDs 6, 7, 12): Implementados como testes de robustez em `DecisoesTest.java` (IDs 65-67)
+**Total:** 22 testes de partições
 
-#### **Valores Limites (IDs 30-62)**
+#### **Valores Limites (IDs 23-54)**
 Arquivo: `LimitesTest.java` - **32 testes implementados**
 
-| Faixa de IDs | Critério | Status |
-|--------------|----------|--------|
-| 30-37 | Limites de Quantidade (0, 1, 2, 3, 4, 5, 7, 8) | ✅ 8 testes |
-| 39-51 | Limites de Peso (-0.1, 0.0, 0.1, 4.9, 5.0, 5.01, 9.9, 10.0, 10.01, 49.9, 50.0, 50.01, 50.2) | ✅ 13 testes |
-| 52-62 | Limites de Subtotal (-0.1, 0.0, 0.1, 499.99, 500.0, 500.1, 500.2, 999.9, 1000.0, 1000.1, 1000.2) | ✅ 11 testes |
+| Faixa de IDs | Critério | Valores Testados |
+|--------------|----------|------------------|
+| 23-30 | Limites de Quantidade | 0, 1, 2, 3, 4, 5, 7, 8 |
+| 31-43 | Limites de Peso | -0.1, 0.0, 0.1, 4.9, 5.0, 5.01, 9.9, 10.0, 10.01, 49.9, 50.0, 50.01, 50.2 kg |
+| 44-54 | Limites de Subtotal | -0.1, 0.0, 0.1, 499.99, 500.0, 500.1, 500.2, 999.9, 1000.0, 1000.1, 1000.2 |
 
-**Nota:** ID 38 foi omitido (sequência de limites de quantidade já coberta)
+**Total:** 32 testes de limites
 
-#### **Decisões e Combinações (IDs 65-71)**
+#### **Decisões e Combinações (IDs 55-61)**
 Arquivo: `DecisoesTest.java` - **7 testes implementados**
 
 | ID | Tipo | Descrição | Regras Cobertas |
 |----|------|-----------|----------------|
-| 65 | Robustez | Qtd ≤ 0 lança exceção | Validação (TabelaDecisões ID 19) |
-| 66 | Robustez | Preço < 0 lança exceção | Validação (TabelaDecisões ID 20) |
-| 67 | Robustez | Peso < 0 lança exceção | Validação de entrada |
-| 68 | Combinação | Desc. 10% valor + Frete isento | IDs 2, 7 da tabela |
-| 69 | Combinação | Desc. Qtd 10% + Sub 10% + Frete D/Ouro | IDs 5, 2, 10, 13, 14 da tabela |
-| 70 | Combinação | Desc. Qtd 5% + Sub 20% + Frete C/Prata/Frágil | IDs 4, 1, 9, 15, 17 da tabela |
-| 71 | Combinação | Desc. Qtd 15% + Sub 20% + Frete D/Bronze | IDs 6, 1, 10, 16 da tabela |
+| 55 | Robustez | Qtd ≤ 0 lança exceção | Validação de entrada |
+| 56 | Robustez | Preço < 0 lança exceção | Validação de entrada |
+| 57 | Robustez | Peso < 0 lança exceção | Validação de entrada |
+| 58 | Combinação | Desc. 10% valor + Frete isento | Múltiplas regras |
+| 59 | Combinação | Desc. Qtd 10% + Sub 10% + Frete D/Ouro | Combinação complexa |
+| 60 | Combinação | Desc. Qtd 5% + Sub 20% + Frete C/Prata/Frágil | Combinação complexa |
+| 61 | Combinação | Desc. Qtd 15% + Sub 20% + Frete D/Bronze | Máxima penalização |
 
-**Mapeamento com TabelaDecisões.csv:**
-- Cada teste de combinação (IDs 68-71) valida múltiplas regras simultaneamente
-- Testes de robustez (IDs 65-67) cobrem validação de entradas inválidas
+**Total:** 7 testes de decisões e robustez
 
-#### **Resumo da Cobertura de IDs:**
+#### **Resumo da Cobertura Sequencial:**
 
 ```
-✅ IDs 1-5    : Partições Quantidade (5 testes)
-⚠️  ID 6      : Coberto por ID 65 (robustez)
-⚠️  ID 7      : Coberto por ID 67 (robustez)  
-✅ IDs 8-11   : Partições Peso (4 testes)
-⚠️  ID 12     : Coberto por ID 66 (robustez)
-✅ IDs 13-20  : Partições Subtotal, Região (8 testes)
-✅ IDs 22-24  : Partições Cliente (3 testes)
-✅ IDs 26-27  : Partições Frágil (2 testes)
-✅ IDs 30-37  : Limites Quantidade (8 testes)
-✅ IDs 39-51  : Limites Peso (13 testes)
-✅ IDs 52-62  : Limites Subtotal (11 testes)
-✅ IDs 65-71  : Decisões e Robustez (7 testes)
+✅ IDs 1-22   : Partições de Domínio (22 testes em ParticoesTest.java)
+✅ IDs 23-54  : Valores Limites (32 testes em LimitesTest.java)
+✅ IDs 55-61  : Decisões e Robustez (7 testes em DecisoesTest.java)
 ```
 
-**Total:** 62 testes cobrindo todos os critérios de caixa preta e caixa branca ✅
+**Total Geral:** 61 testes cobrindo todos os critérios de caixa preta e caixa branca ✅
+
+**Distribuição por Arquivo:**
+- `ParticoesTest.java`: IDs 1-22 (22 testes)
+- `LimitesTest.java`: IDs 23-54 (32 testes)
+- `DecisoesTest.java`: IDs 55-61 (7 testes)
 
 ---
 

@@ -177,7 +177,7 @@ public class ParticoesTest {
     // ============================================================================
 
     @Test
-    @DisplayName("ID 8 - Peso ≤ 5 kg (frete isento)")
+    @DisplayName("ID 6 - Peso ≤ 5 kg (frete isento)")
     void testPesoAte5KgFreteIsento() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -197,7 +197,7 @@ public class ParticoesTest {
     }
 
     @Test
-    @DisplayName("ID 9 - Peso 5 < peso ≤ 10 kg (R$ 2,00/kg + taxa R$ 12,00)")
+    @DisplayName("ID 7 - Peso 5 < peso ≤ 10 kg (R$ 2,00/kg + taxa R$ 12,00)")
     void testPeso5a10Kg() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -218,7 +218,7 @@ public class ParticoesTest {
     }
 
     @Test
-    @DisplayName("ID 10 - Peso 10 < peso ≤ 50 kg (R$ 4,00/kg + taxa R$ 12,00)")
+    @DisplayName("ID 8 - Peso 10 < peso ≤ 50 kg (R$ 4,00/kg + taxa R$ 12,00)")
     void testPeso10a50Kg() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -239,7 +239,7 @@ public class ParticoesTest {
     }
 
     @Test
-    @DisplayName("ID 11 - Peso > 50 kg (R$ 7,00/kg + taxa R$ 12,00)")
+    @DisplayName("ID 9 - Peso > 50 kg (R$ 7,00/kg + taxa R$ 12,00)")
     void testPesoMaior50Kg() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -264,7 +264,7 @@ public class ParticoesTest {
     // ============================================================================
 
     @Test
-    @DisplayName("ID 13 - Subtotal ≤ R$ 500 (sem desconto)")
+    @DisplayName("ID 10 - Subtotal ≤ R$ 500 (sem desconto)")
     void testSubtotalAte500SemDesconto() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -284,7 +284,7 @@ public class ParticoesTest {
     }
 
     @Test
-    @DisplayName("ID 14 - Subtotal > R$ 500 e ≤ R$ 1000 (desconto 10%)")
+    @DisplayName("ID 11 - Subtotal > R$ 500 e ≤ R$ 1000 (desconto 10%)")
     void testSubtotal500a1000ComDesconto10Porcento() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -305,7 +305,7 @@ public class ParticoesTest {
     }
 
     @Test
-    @DisplayName("ID 15 - Subtotal > R$ 1000 (desconto 20%)")
+    @DisplayName("ID 12 - Subtotal > R$ 1000 (desconto 20%)")
     void testSubtotalMaior1000ComDesconto20Porcento() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -330,7 +330,7 @@ public class ParticoesTest {
     // ============================================================================
 
     @Test
-    @DisplayName("ID 16 - Região Sudeste (multiplicador 1.00)")
+    @DisplayName("ID 13 - Região Sudeste (multiplicador 1.00)")
     void testRegiaoSudeste() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -351,7 +351,7 @@ public class ParticoesTest {
     }
 
     @Test
-    @DisplayName("ID 17 - Região Sul (multiplicador 1.05)")
+    @DisplayName("ID 14 - Região Sul (multiplicador 1.05)")
     void testRegiaoSul() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUL);
@@ -372,7 +372,7 @@ public class ParticoesTest {
     }
 
     @Test
-    @DisplayName("ID 18 - Região Nordeste (multiplicador 1.10)")
+    @DisplayName("ID 15 - Região Nordeste (multiplicador 1.10)")
     void testRegiaoNordeste() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.NORDESTE);
@@ -393,7 +393,7 @@ public class ParticoesTest {
     }
 
     @Test
-    @DisplayName("ID 19 - Região Centro-Oeste (multiplicador 1.20)")
+    @DisplayName("ID 16 - Região Centro-Oeste (multiplicador 1.20)")
     void testRegiaoCentroOeste() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.CENTRO_OESTE);
@@ -414,7 +414,7 @@ public class ParticoesTest {
     }
 
     @Test
-    @DisplayName("ID 20 - Região Norte (multiplicador 1.30)")
+    @DisplayName("ID 17 - Região Norte (multiplicador 1.30)")
     void testRegiaoNorte() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.NORTE);
@@ -439,7 +439,7 @@ public class ParticoesTest {
     // ============================================================================
 
     @Test
-    @DisplayName("ID 22 - Cliente Ouro (desconto 100% no frete)")
+    @DisplayName("ID 18 - Cliente Ouro (desconto 100% no frete)")
     void testClienteOuroFreteGratis() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.OURO, Regiao.SUDESTE);
@@ -459,7 +459,7 @@ public class ParticoesTest {
     }
 
     @Test
-    @DisplayName("ID 23 - Cliente Prata (desconto 50% no frete)")
+    @DisplayName("ID 19 - Cliente Prata (desconto 50% no frete)")
     void testClientePrataDesconto50PorcentoFrete() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.PRATA, Regiao.SUDESTE);
@@ -480,7 +480,7 @@ public class ParticoesTest {
     }
 
     @Test
-    @DisplayName("ID 24 - Cliente Bronze (sem desconto no frete)")
+    @DisplayName("ID 20 - Cliente Bronze (sem desconto no frete)")
     void testClienteBronzeSemDescontoFrete() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -505,7 +505,7 @@ public class ParticoesTest {
     // ============================================================================
 
     @Test
-    @DisplayName("ID 26 - Produto Frágil (taxa adicional R$ 5,00/unidade)")
+    @DisplayName("ID 21 - Produto Frágil (taxa adicional R$ 5,00/unidade)")
     void testProdutoFragilComTaxaAdicional() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -526,7 +526,7 @@ public class ParticoesTest {
     }
 
     @Test
-    @DisplayName("ID 27 - Produto Não Frágil (sem taxa adicional)")
+    @DisplayName("ID 22 - Produto Não Frágil (sem taxa adicional)")
     void testProdutoNaoFragilSemTaxa() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);

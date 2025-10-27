@@ -54,7 +54,7 @@ public class LimitesTest {
     // LIMITES: QUANTIDADE DE ITENS
 
     @Test
-    @DisplayName("ID 30 - Limite Qtd <=0 (Lançar Excessão)")
+    @DisplayName("ID 23 - Limite Qtd <=0 (Lançar Exceção)")
     void testRobustezQuantidadeZerada() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -69,7 +69,7 @@ public class LimitesTest {
     }
 
     @Test
-    @DisplayName("ID 31 - Limite Qtd=1 (Min 0% Desconto)")
+    @DisplayName("ID 24 - Limite Qtd=1 (Min 0% Desconto)")
     void testQtdLimite1NenhumDesconto() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -87,7 +87,7 @@ public class LimitesTest {
     }
 
     @Test
-    @DisplayName("ID 32 - Limite Qtd=2 (Max 0% Desconto)")
+    @DisplayName("ID 25 - Limite Qtd=2 (Max 0% Desconto)")
     void testQtdLimite2NenhumDesconto() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -106,7 +106,7 @@ public class LimitesTest {
 
 
     @Test
-    @DisplayName("ID 33 - Limite Qtd=3 (Min 5% Desconto)")
+    @DisplayName("ID 26 - Limite Qtd=3 (Min 5% Desconto)")
     void testQtdLimite3ComDesconto5Porcento() {
         // Arrange
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -124,7 +124,7 @@ public class LimitesTest {
     }
 
     @Test
-    @DisplayName("ID 34 - Limite Qtd=4 (Max 5% Desconto)")
+    @DisplayName("ID 27 - Limite Qtd=4 (Max 5% Desconto)")
     void testQtdLimite4ComDesconto5Porcento() {
         // Expected: 400 * 0.95 = 380.00
         // ...
@@ -144,7 +144,7 @@ public class LimitesTest {
     }
 
     @Test
-    @DisplayName("ID 35 - Limite Qtd=5 (Min 10% Desconto)")
+    @DisplayName("ID 28 - Limite Qtd=5 (Min 10% Desconto)")
     void testQtdLimite5ComDesconto10Porcento() {
         // Expected: 500 * 0.90 = 450.00
         // ...
@@ -164,7 +164,7 @@ public class LimitesTest {
     }
 
     @Test
-    @DisplayName("ID 36 - Limite Qtd=7 (Max 10% Desconto)")
+    @DisplayName("ID 29 - Limite Qtd=7 (Max 10% Desconto)")
     void testQtdLimite7ComDesconto10Porcento() {
         // Expected: 700 * 0.90 = 630.00 (Subtotal)
         // Subtotal após desc. Qtd: 630. Frete: 7 * 2 + 12 = 26.
@@ -186,7 +186,7 @@ public class LimitesTest {
     }
 
     @Test
-    @DisplayName("ID 37 - Limite Qtd=8 (Min 15% Desconto)")
+    @DisplayName("ID 30 - Limite Qtd=8 (Min 15% Desconto)")
     void testQtdLimite8ComDesconto15Porcento() {
         // Expected: 640.00
         // Arrange
@@ -204,10 +204,10 @@ public class LimitesTest {
                 .isEqualByComparingTo("640.00");
     }
 
-    // LIMITES: PESO TOTAL (KG) - IDs 39 a 51
+    // LIMITES: PESO TOTAL (KG) - IDs 31 a 43
 
     @Test
-    @DisplayName("ID 39 - Limite: Peso Inválido (Entrada -0.1kg - Lançar Exceção)")
+    @DisplayName("ID 31 - Limite: Peso Inválido (Entrada -0.1kg - Lançar Exceção)")
     void testRobustezPesoNegativo() {
         // Arrange - Teste 39: Entrada -0.1 (Robustez)
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -223,7 +223,7 @@ public class LimitesTest {
     }
 
     @Test
-    @DisplayName("ID 40 - Limite Peso = 0.00 kg (MIN Faixa A - Isento)")
+    @DisplayName("ID 32 - Limite Peso = 0.00 kg (MIN Faixa A - Isento)")
     void testLimitePeso0KgIsento() {
         // Arrange - Teste 40: Entrada 0.00 (Minimo Válido)
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -241,7 +241,7 @@ public class LimitesTest {
     }
 
     @Test
-    @DisplayName("ID 41 - Limite Peso = 0.1 kg (MIN+ Faixa A - Isento)")
+    @DisplayName("ID 33 - Limite Peso = 0.1 kg (MIN+ Faixa A - Isento)")
     void testLimitePeso0Ponto1KgIsento() {
         // Arrange - Teste 41: Entrada 0.1 (Dentro da Partição A)
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -254,12 +254,12 @@ public class LimitesTest {
 
         // Assert - Frete deve ser R$ 0.00
         assertThat(custoTotal)
-                .as("ID 41: Peso = 0.1kg deve ser isento de frete")
+                .as("ID 33: Peso = 0.1kg deve ser isento de frete")
                 .isEqualByComparingTo(PRECO_PADRAO); // 100.00
     }
 
     @Test
-    @DisplayName("ID 42 - Limite Peso = 4.9 kg (MAX- Faixa A - Isento)")
+    @DisplayName("ID 34 - Limite Peso = 4.9 kg (MAX- Faixa A - Isento)")
     void testLimitePeso4Ponto9KgIsento() {
         // Arrange - Teste 42: Entrada 4.9 (Quase no limite de isenção)
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -272,12 +272,12 @@ public class LimitesTest {
 
         // Assert - Frete deve ser R$ 0.00
         assertThat(custoTotal)
-                .as("ID 42: Peso = 4.9kg deve ser isento de frete")
+                .as("ID 34: Peso = 4.9kg deve ser isento de frete")
                 .isEqualByComparingTo(PRECO_PADRAO); // 100.00
     }
 
     @Test
-    @DisplayName("ID 43 - Limite Peso = 5.00 kg (MAX Faixa A / MIN- Faixa B - Isento)")
+    @DisplayName("ID 35 - Limite Peso = 5.00 kg (MAX Faixa A / MIN- Faixa B - Isento)")
     void testLimitePeso5KgIsento() {
         // Arrange - Teste 43: Entrada 5.00 (Limite máximo de isenção)
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -290,12 +290,12 @@ public class LimitesTest {
 
         // Assert - Frete deve ser R$ 0.00
         assertThat(custoTotal)
-                .as("ID 43: Peso = 5.00kg deve ser o limite MÁXIMO para Frete Isento (Faixa A)")
+                .as("ID 35: Peso = 5.00kg deve ser o limite MÁXIMO para Frete Isento (Faixa A)")
                 .isEqualByComparingTo(PRECO_PADRAO); // 100.00
     }
 
     @Test
-    @DisplayName("ID 44 - Limite Peso = 5.01 kg (MIN Faixa B - R$ 2/kg + R$ 12)")
+    @DisplayName("ID 36 - Limite Peso = 5.01 kg (MIN Faixa B - R$ 2/kg + R$ 12)")
     void testLimitePeso5Ponto01KgComFrete() {
         // Arrange - Teste 44: Entrada 5.01 (Início da Faixa B)
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -311,12 +311,12 @@ public class LimitesTest {
         BigDecimal custoEsperado = PRECO_PADRAO.add(frete).setScale(2, RoundingMode.HALF_UP);
 
         assertThat(custoTotal)
-                .as("ID 44: Peso = 5.01kg deve ser o limite MÍNIMO para Faixa B")
+                .as("ID 36: Peso = 5.01kg deve ser o limite MÍNIMO para Faixa B")
                 .isEqualByComparingTo(custoEsperado); // 122.02
     }
 
     @Test
-    @DisplayName("ID 45 - Limite Peso = 9.9 kg (MAX- Faixa B - R$ 2/kg + R$ 12)")
+    @DisplayName("ID 37 - Limite Peso = 9.9 kg (MAX- Faixa B - R$ 2/kg + R$ 12)")
     void testLimitePeso9Ponto9Kg() {
         // Arrange - Teste 45: Entrada 9.9 (Perto do limite máximo da Faixa B)
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -332,12 +332,12 @@ public class LimitesTest {
         BigDecimal custoEsperado = PRECO_PADRAO.add(frete).setScale(2, RoundingMode.HALF_UP);
 
         assertThat(custoTotal)
-                .as("ID 45: Peso = 9.9kg deve estar na Faixa B")
+                .as("ID 37: Peso = 9.9kg deve estar na Faixa B")
                 .isEqualByComparingTo(custoEsperado); // 131.80
     }
 
     @Test
-    @DisplayName("ID 46 - Limite Peso = 10.00 kg (MAX Faixa B / MIN- Faixa C - R$ 2/kg + R$ 12)")
+    @DisplayName("ID 38 - Limite Peso = 10.00 kg (MAX Faixa B / MIN- Faixa C - R$ 2/kg + R$ 12)")
     void testLimitePeso10Kg() {
         // Arrange - Teste 46: Entrada 10.00 (Limite máximo da Faixa B)
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -353,12 +353,12 @@ public class LimitesTest {
         BigDecimal custoEsperado = PRECO_PADRAO.add(frete).setScale(2, RoundingMode.HALF_UP);
 
         assertThat(custoTotal)
-                .as("ID 46: Peso = 10.00kg deve ser o limite MÁXIMO para Faixa B")
+                .as("ID 38: Peso = 10.00kg deve ser o limite MÁXIMO para Faixa B")
                 .isEqualByComparingTo(custoEsperado); // 132.00
     }
 
     @Test
-    @DisplayName("ID 47 - Limite Peso = 10.01 kg (MIN Faixa C - R$ 4/kg + R$ 12)")
+    @DisplayName("ID 39 - Limite Peso = 10.01 kg (MIN Faixa C - R$ 4/kg + R$ 12)")
     void testLimitePeso10Ponto01Kg() {
         // Arrange - Teste 47: Entrada 10.01 (Início da Faixa C)
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -374,12 +374,12 @@ public class LimitesTest {
         BigDecimal custoEsperado = PRECO_PADRAO.add(frete).setScale(2, RoundingMode.HALF_UP);
 
         assertThat(custoTotal)
-                .as("ID 47: Peso = 10.01kg deve ser o limite MÍNIMO para Faixa C")
+                .as("ID 39: Peso = 10.01kg deve ser o limite MÍNIMO para Faixa C")
                 .isEqualByComparingTo(custoEsperado); // 152.04
     }
 
     @Test
-    @DisplayName("ID 48 - Limite Peso = 49.9 kg (MAX- Faixa C - R$ 4/kg + R$ 12)")
+    @DisplayName("ID 40 - Limite Peso = 49.9 kg (MAX- Faixa C - R$ 4/kg + R$ 12)")
     void testLimitePeso49Ponto9Kg() {
         // Arrange - Teste 48: Entrada 49.9 (Perto do limite máximo da Faixa C)
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -395,12 +395,12 @@ public class LimitesTest {
         BigDecimal custoEsperado = PRECO_PADRAO.add(frete).setScale(2, RoundingMode.HALF_UP);
 
         assertThat(custoTotal)
-                .as("ID 48: Peso = 49.9kg deve estar na Faixa C")
+                .as("ID 40: Peso = 49.9kg deve estar na Faixa C")
                 .isEqualByComparingTo(custoEsperado); // 311.60
     }
 
     @Test
-    @DisplayName("ID 49 - Limite Peso = 50.00 kg (MAX Faixa C - R$ 4/kg + R$ 12)")
+    @DisplayName("ID 41 - Limite Peso = 50.00 kg (MAX Faixa C - R$ 4/kg + R$ 12)")
     void testLimitePeso50Kg() {
         // Arrange - Teste 49: Entrada 50.00 (Limite máximo da Faixa C)
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -416,12 +416,12 @@ public class LimitesTest {
         BigDecimal custoEsperado = PRECO_PADRAO.add(frete).setScale(2, RoundingMode.HALF_UP);
 
         assertThat(custoTotal)
-                .as("ID 49: Peso = 50.00kg deve ser o limite MÁXIMO para Faixa C")
+                .as("ID 41: Peso = 50.00kg deve ser o limite MÁXIMO para Faixa C")
                 .isEqualByComparingTo(custoEsperado); // 312.00
     }
 
     @Test
-    @DisplayName("ID 50 - Limite Peso = 50.01 kg (MIN Faixa D - R$ 7/kg + R$ 12)")
+    @DisplayName("ID 42 - Limite Peso = 50.01 kg (MIN Faixa D - R$ 7/kg + R$ 12)")
     void testLimitePeso50Ponto01Kg() {
         // Arrange - Teste 50: Entrada 50.01 (Início da Faixa D)
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -437,12 +437,12 @@ public class LimitesTest {
         BigDecimal custoEsperado = PRECO_PADRAO.add(frete).setScale(2, RoundingMode.HALF_UP);
 
         assertThat(custoTotal)
-                .as("ID 50: Peso = 50.01kg deve ser o limite MÍNIMO para Faixa D")
+                .as("ID 42: Peso = 50.01kg deve ser o limite MÍNIMO para Faixa D")
                 .isEqualByComparingTo(custoEsperado); // 462.07
     }
 
     @Test
-    @DisplayName("ID 51 - Limite Peso = 50.2 kg (MIN+ Faixa D - R$ 7/kg + R$ 12)")
+    @DisplayName("ID 43 - Limite Peso = 50.2 kg (MIN+ Faixa D - R$ 7/kg + R$ 12)")
     void testLimitePeso50Ponto2Kg() {
         // Arrange - Teste 51: Entrada 50.2 (Dentro da Partição D)
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -458,14 +458,14 @@ public class LimitesTest {
         BigDecimal custoEsperado = PRECO_PADRAO.add(frete).setScale(2, RoundingMode.HALF_UP);
 
         assertThat(custoTotal)
-                .as("ID 51: Peso = 50.2kg deve estar na Faixa D")
+                .as("ID 43: Peso = 50.2kg deve estar na Faixa D")
                 .isEqualByComparingTo(custoEsperado); // 463.40
     }
 
-// LIMITES: SUBTOTAL (DESCONTO POR VALOR) - IDs 52 a 62
+// LIMITES: SUBTOTAL (DESCONTO POR VALOR) - IDs 44 a 54
 
     @Test
-    @DisplayName("ID 52 - Limite: Subtotal Inválido (-0.1 - Lançar Exceção)")
+    @DisplayName("ID 44 - Limite: Subtotal Inválido (-0.1 - Lançar Exceção)")
     void testRobustezSubtotalNegativo() {
         // Arrange - Teste 52: Entrada -0.1 (Robustez)
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -477,11 +477,11 @@ public class LimitesTest {
         // Assert
         assertThrows(IllegalArgumentException.class, () -> {
             compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        }, "ID 52: Deve lançar exceção ao tentar calcular com subtotal negativo");
+        }, "ID 44: Deve lançar exceção ao tentar calcular com subtotal negativo");
     }
 
     @Test
-    @DisplayName("ID 53 - Limite Subtotal = R$ 0.00 (MIN Válido - 0% Desconto)")
+    @DisplayName("ID 45 - Limite Subtotal = R$ 0.00 (MIN Válido - 0% Desconto)")
     void testLimiteSubtotal0SemDesconto() {
         // Arrange - Teste 53: Entrada 0.00
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -493,12 +493,12 @@ public class LimitesTest {
 
         // Assert - Frete isento, Total: 0.00
         assertThat(custoTotal)
-                .as("ID 53: Subtotal = R$ 0.00 deve resultar em 0% de desconto e custo total R$ 0.00")
+                .as("ID 45: Subtotal = R$ 0.00 deve resultar em 0% de desconto e custo total R$ 0.00")
                 .isEqualByComparingTo("0.00");
     }
 
     @Test
-    @DisplayName("ID 54 - Limite Subtotal = R$ 0.10 (MIN+ - 0% Desconto)")
+    @DisplayName("ID 46 - Limite Subtotal = R$ 0.10 (MIN+ - 0% Desconto)")
     void testLimiteSubtotal0Ponto1SemDesconto() {
         // Arrange - Teste 54: Entrada 0.10
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -511,12 +511,12 @@ public class LimitesTest {
 
         // Assert - Frete isento, Total: 0.10
         assertThat(custoTotal)
-                .as("ID 54: Subtotal = R$ 0.10 deve ter 0% de desconto")
+                .as("ID 46: Subtotal = R$ 0.10 deve ter 0% de desconto")
                 .isEqualByComparingTo("0.10");
     }
 
     @Test
-    @DisplayName("ID 55 - Limite Subtotal = R$ 499.99 (MAX- 0% Desconto)")
+    @DisplayName("ID 47 - Limite Subtotal = R$ 499.99 (MAX- 0% Desconto)")
     void testLimiteSubtotal499Ponto99SemDesconto() {
         // Arrange - Teste 55: Entrada 499.99
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -529,12 +529,12 @@ public class LimitesTest {
 
         // Assert - Subtotal < 500, 0% de desconto. Total: 499.99
         assertThat(custoTotal)
-                .as("ID 55: Subtotal = R$ 499.99 deve ser o limite MÁXIMO para 0% de desconto por valor")
+                .as("ID 47: Subtotal = R$ 499.99 deve ser o limite MÁXIMO para 0% de desconto por valor")
                 .isEqualByComparingTo("499.99");
     }
 
     @Test
-    @DisplayName("ID 56 - Limite Subtotal = R$ 500.00 (MAX 0% Desconto)")
+    @DisplayName("ID 48 - Limite Subtotal = R$ 500.00 (MAX 0% Desconto)")
     void testLimiteSubtotal500ComDesconto10Porcento() {
         // Arrange - Teste 56: Entrada 500.00
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -547,12 +547,12 @@ public class LimitesTest {
 
         // Assert - Desconto 0%: Total: 500.00
         assertThat(custoTotal)
-                .as("ID 56: Subtotal = R$ 500.00 deve ser o limite MÁXIMO para 0% de desconto por valor. Total: 500.00")
+                .as("ID 48: Subtotal = R$ 500.00 deve ser o limite MÁXIMO para 0% de desconto por valor. Total: 500.00")
                 .isEqualByComparingTo("500.00");
     }
 
     @Test
-    @DisplayName("ID 57 - Limite Subtotal = R$ 500.10 (MIN+ 10% Desconto)")
+    @DisplayName("ID 49 - Limite Subtotal = R$ 500.10 (MIN+ 10% Desconto)")
     void testLimiteSubtotal500Ponto1ComDesconto10Porcento() {
         // Arrange - Teste 57: Entrada 500.10
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -569,12 +569,12 @@ public class LimitesTest {
         BigDecimal custoEsperado = subtotal.subtract(desconto).setScale(2, RoundingMode.HALF_UP); // 450.09
 
         assertThat(custoTotal)
-                .as("ID 57: Subtotal = R$ 500.10 deve ter 10% de desconto")
+                .as("ID 49: Subtotal = R$ 500.10 deve ter 10% de desconto")
                 .isEqualByComparingTo(custoEsperado);
     }
 
     @Test
-    @DisplayName("ID 58 - Limite Subtotal = R$ 500.20 (MIN++ 10% Desconto)")
+    @DisplayName("ID 50 - Limite Subtotal = R$ 500.20 (MIN++ 10% Desconto)")
     void testLimiteSubtotal500Ponto2ComDesconto10Porcento() {
         // Arrange - Teste 58: Entrada 500.20
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -591,12 +591,12 @@ public class LimitesTest {
         BigDecimal custoEsperado = subtotal.subtract(desconto).setScale(2, RoundingMode.HALF_UP); // 450.18
 
         assertThat(custoTotal)
-                .as("ID 58: Subtotal = R$ 500.20 deve ter 10% de desconto")
+                .as("ID 50: Subtotal = R$ 500.20 deve ter 10% de desconto")
                 .isEqualByComparingTo(custoEsperado);
     }
 
     @Test
-    @DisplayName("ID 59 - Limite Subtotal = R$ 999.90 (MAX- 10% Desconto)")
+    @DisplayName("ID 51 - Limite Subtotal = R$ 999.90 (MAX- 10% Desconto)")
     void testLimiteSubtotal999Ponto9ComDesconto10Porcento() {
         // Arrange - Teste 59: Entrada 999.90
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -613,12 +613,12 @@ public class LimitesTest {
         BigDecimal custoEsperado = subtotal.subtract(desconto).setScale(2, RoundingMode.HALF_UP); // 899.90
 
         assertThat(custoTotal)
-                .as("ID 59: Subtotal = R$ 999.90 deve ser o limite MÁXIMO para 10% de desconto (MAX-)")
+                .as("ID 51: Subtotal = R$ 999.90 deve ser o limite MÁXIMO para 10% de desconto (MAX-)")
                 .isEqualByComparingTo("899.91"); // 999.90 * 0.9 = 899.91
     }
 
     @Test
-    @DisplayName("ID 60 - Limite Subtotal = R$ 1000.00 (MAX 10% Desconto)")
+    @DisplayName("ID 52 - Limite Subtotal = R$ 1000.00 (MAX 10% Desconto)")
     void testLimiteSubtotal1000ComDesconto10Porcento() {
         // Arrange - Teste 60: Entrada 1000.00
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -631,12 +631,12 @@ public class LimitesTest {
 
         // Assert - Desconto 10%: 100.00. Total: 900.00
         assertThat(custoTotal)
-                .as("ID 60: Subtotal = R$ 1000.00 deve ser o limite MÁXIMO para 10% de desconto por valor")
+                .as("ID 52: Subtotal = R$ 1000.00 deve ser o limite MÁXIMO para 10% de desconto por valor")
                 .isEqualByComparingTo("900.00");
     }
 
     @Test
-    @DisplayName("ID 61 - Limite Subtotal = R$ 1000.10 (MIN 20% Desconto)")
+    @DisplayName("ID 53 - Limite Subtotal = R$ 1000.10 (MIN 20% Desconto)")
     void testLimiteSubtotal1000Ponto1ComDesconto20Porcento() {
         // Arrange - Teste 61: Entrada 1000.10
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -653,12 +653,12 @@ public class LimitesTest {
         BigDecimal custoEsperado = subtotal.subtract(desconto).setScale(2, RoundingMode.HALF_UP); // 800.08
 
         assertThat(custoTotal)
-                .as("ID 61: Subtotal = R$ 1000.10 deve ser o limite MÍNIMO para 20% de desconto por valor")
+                .as("ID 53: Subtotal = R$ 1000.10 deve ser o limite MÍNIMO para 20% de desconto por valor")
                 .isEqualByComparingTo(custoEsperado); // 800.08
     }
 
     @Test
-    @DisplayName("ID 62 - Limite Subtotal = R$ 1000.20 (MIN+ 20% Desconto)")
+    @DisplayName("ID 54 - Limite Subtotal = R$ 1000.20 (MIN+ 20% Desconto)")
     void testLimiteSubtotal1000Ponto2ComDesconto20Porcento() {
         // Arrange - Teste 62: Entrada 1000.20
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -675,7 +675,7 @@ public class LimitesTest {
         BigDecimal custoEsperado = subtotal.subtract(desconto).setScale(2, RoundingMode.HALF_UP); // 800.16
 
         assertThat(custoTotal)
-                .as("ID 62: Subtotal = R$ 1000.20 deve ter 20% de desconto")
+                .as("ID 54: Subtotal = R$ 1000.20 deve ter 20% de desconto")
                 .isEqualByComparingTo(custoEsperado); // 800.16
     }
 

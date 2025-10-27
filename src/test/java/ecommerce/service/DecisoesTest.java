@@ -44,11 +44,11 @@ public class DecisoesTest {
     }
 
     // ============================================================================
-    // IDs 65, 66, 67: TESTES DE ROBUSTEZ
+    // IDs 55, 56, 57: TESTES DE ROBUSTEZ
     // ============================================================================
 
     @Test
-    @DisplayName("ID 65 - Robustez: Qtd <= 0 (Lançar Exceção)")
+    @DisplayName("ID 55 - Robustez: Qtd <= 0 (Lançar Exceção)")
     void testRobustezQuantidadeInvalida() {
         // Arrange: Qtd=-1, Sub=100, Peso=10
         Cliente cliente = criarCliente(TipoCliente.OURO, Regiao.NORTE);
@@ -59,11 +59,11 @@ public class DecisoesTest {
         // Assert
         assertThrows(IllegalArgumentException.class, () -> {
             compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        }, "ID 65: Deve lançar exceção se a quantidade de itens for inválida.");
+        }, "ID 55: Deve lançar exceção se a quantidade de itens for inválida.");
     }
 
     @Test
-    @DisplayName("ID 66 - Robustez: Subtotal < 0 (Preço < 0, Lançar Exceção)")
+    @DisplayName("ID 56 - Robustez: Subtotal < 0 (Preço < 0, Lançar Exceção)")
     void testRobustezSubtotalNegativo() {
         // Arrange: Qtd=3, Sub=-1 (Preço -0.33), Peso=5
         Cliente cliente = criarCliente(TipoCliente.OURO, Regiao.NORTE);
@@ -77,11 +77,11 @@ public class DecisoesTest {
         // Assert
         assertThrows(IllegalArgumentException.class, () -> {
             compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        }, "ID 66: Deve lançar exceção se o subtotal (e o preço) for negativo.");
+        }, "ID 56: Deve lançar exceção se o subtotal (e o preço) for negativo.");
     }
 
     @Test
-    @DisplayName("ID 67 - Robustez: Peso Total < 0 (Lançar Exceção)")
+    @DisplayName("ID 57 - Robustez: Peso Total < 0 (Lançar Exceção)")
     void testRobustezPesoNegativo() {
         // Arrange: Qtd=5, Sub=200, Peso=-0.1
         Cliente cliente = criarCliente(TipoCliente.OURO, Regiao.NORDESTE);
@@ -93,15 +93,15 @@ public class DecisoesTest {
         // Assert
         assertThrows(IllegalArgumentException.class, () -> {
             compraService.calcularCustoTotal(carrinho, cliente.getRegiao(), cliente.getTipo());
-        }, "ID 67: Deve lançar exceção se o peso total for negativo.");
+        }, "ID 57: Deve lançar exceção se o peso total for negativo.");
     }
 
     // ============================================================================
-    // IDs 68 a 71: TESTES DE COMBINAÇÃO DE REGRAS
+    // IDs 58 a 61: TESTES DE COMBINAÇÃO DE REGRAS
     // ============================================================================
 
     @Test
-    @DisplayName("ID 68 - Combinação Básica: Sub 10% Desc. + Frete Isento/Bronze")
+    @DisplayName("ID 58 - Combinação Básica: Sub 10% Desc. + Frete Isento/Bronze")
     void testCombinacaoBasica() {
         // Arrange: Qtd=1, Sub=600, Peso=3, Sudeste, Bronze, Não Frágil
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.SUDESTE);
@@ -120,12 +120,12 @@ public class DecisoesTest {
         // 4. Frete (Peso 3kg): Isento (R$ 0.00)
         // 5. Total: 540.00
         assertThat(custoTotal)
-                .as("ID 68: Deve aplicar 10% de desconto por valor, e Frete Isento/Bronze")
+                .as("ID 58: Deve aplicar 10% de desconto por valor, e Frete Isento/Bronze")
                 .isEqualByComparingTo("540.00");
     }
 
     @Test
-    @DisplayName("ID 69 - Complexo Qtd 10% + Sub 10% + Frete Faixa D/Ouro/Nordeste")
+    @DisplayName("ID 59 - Complexo Qtd 10% + Sub 10% + Frete Faixa D/Ouro/Nordeste")
     void testComplexoFaixaDOuroNordeste() {
         // Arrange: Qtd=6 (10% desc), Sub=600, Peso=51 (Faixa D), Nordeste (x1.10), Ouro (0% frete), Não Frágil
         Cliente cliente = criarCliente(TipoCliente.OURO, Regiao.NORDESTE);
@@ -146,12 +146,12 @@ public class DecisoesTest {
         // 5. Desconto Cliente (Ouro): 100% (Frete Final R$ 0.00)
         // 6. Total: 486.00 + 0.00 = 486.00
         assertThat(custoTotal)
-                .as("ID 69: Deve aplicar 10% Qtd e 10% Sub, e zerar Frete (Cliente Ouro)")
+                .as("ID 59: Deve aplicar 10% Qtd e 10% Sub, e zerar Frete (Cliente Ouro)")
                 .isEqualByComparingTo("486.00");
     }
 
     @Test
-    @DisplayName("ID 70 - Complexo Qtd 5% + Sub 20% + Frete Faixa C/Prata/Sul/Frágil")
+    @DisplayName("ID 60 - Complexo Qtd 5% + Sub 20% + Frete Faixa C/Prata/Sul/Frágil")
     void testComplexoPrataFragemFaixaC() {
         // Arrange: Qtd=4 (5% desc), Sub=1500, Peso=20 (Faixa C), Sul (x1.05), Prata (50% frete), Frágil
         Cliente cliente = criarCliente(TipoCliente.PRATA, Regiao.SUL);
@@ -173,12 +173,12 @@ public class DecisoesTest {
         // 6. Desconto Cliente (Prata 50%): 117.60 * 0.50 = 58.80 (Frete Final)
         // 7. Total: 1140.00 + 58.80 = 1198.80
         assertThat(custoTotal)
-                .as("ID 70: Deve combinar Desc. Qtd, Desc. Sub, Frete Faixa C, Taxa Frágil, Mult. Sul e Desc. Prata")
+                .as("ID 60: Deve combinar Desc. Qtd, Desc. Sub, Frete Faixa C, Taxa Frágil, Mult. Sul e Desc. Prata")
                 .isEqualByComparingTo("1198.80");
     }
 
     @Test
-    @DisplayName("ID 71 - Combinação Máxima Penalização: Qtd 15% + Sub 20% + Frete Faixa D/CO/Bronze")
+    @DisplayName("ID 61 - Combinação Máxima Penalização: Qtd 15% + Sub 20% + Frete Faixa D/CO/Bronze")
     void testMaximoDescontoEFrete() {
         // Arrange: Qtd=9 (15% desc), Subtotal Bruto=1350.00, Peso Total=54.00kg (Faixa D), Centro-Oeste (x1.20), Bronze (0% frete), Não Frágil
         Cliente cliente = criarCliente(TipoCliente.BRONZE, Regiao.CENTRO_OESTE);
@@ -206,7 +206,7 @@ public class DecisoesTest {
         // 5. Multiplicador (C-Oeste x1.20): 390.00 * 1.20 = 468.00 (Frete Final)
         // 6. Total: 918.00 + 468.00 = 1386.00
         assertThat(custoTotal)
-                .as("ID 71: Máxima penalização deve combinar Qtd 15%, Sub 20%, Faixa D, Mult. Centro-Oeste e Bronze")
+                .as("ID 61: Máxima penalização deve combinar Qtd 15%, Sub 20%, Faixa D, Mult. Centro-Oeste e Bronze")
                 .isEqualByComparingTo("1386.00");
     }
 
