@@ -116,8 +116,7 @@ Este projeto implementa testes automatizados para a funcionalidade de **finaliza
 
 - [x] Método `calcularCustoTotal` implementado e funcionando **COMPLETAMENTE** ✅
   - [x] Implementado 100% completo
-  - [x] ✅ **CORRIGIDO**: Bug em `calcularFretePorPeso`
-  - [x] ✅ **IMPLEMENTADO**: Desconto por valor de carrinho
+  - [x] Desconto por valor de carrinho
 - [x] Todas as regras de negócio implementadas corretamente ✅
   - [x] 11 de 11 regras implementadas
   - [x] Todas as funcionalidades completas
@@ -172,17 +171,6 @@ Este projeto implementa testes automatizados para a funcionalidade de **finaliza
 - [x] IDs dos testes renumerados sequencialmente (1-61, sem gaps) ✅
 - [x] Todos os testes executam com sucesso ✅ (61/61 passando)
 - [x] Cobertura verificada e documentada ✅
-- [ ] Projeto compactado em .zip
-- [ ] Nome do arquivo .zip segue padrão (MatheusFreitas-JonasRafael.zip)
-- [ ] Pronto para envio no SIGAA
-
-**Progresso Total:** 53/56 itens completos **(95% concluído)**
-
-### 📋 Itens Restantes para Finalizar a Entrega:
-
-1. ⏳ **Compactar projeto em .zip** com nome: `MatheusFreitas-JonasRafael.zip`
-2. ⏳ **Revisar documentação final** antes da submissão
-3. ⏳ **Submeter no SIGAA**
 
 ---
 
