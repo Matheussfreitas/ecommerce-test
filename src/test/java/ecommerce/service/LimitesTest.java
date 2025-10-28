@@ -236,7 +236,7 @@ public class LimitesTest {
 
         // Assert - Frete deve ser R$ 0.00
         assertThat(custoTotal)
-                .as("ID 40: Peso = 0.00kg deve ser isento de frete")
+                .as("ID 32: Peso = 0.00kg deve ser isento de frete")
                 .isEqualByComparingTo(PRECO_PADRAO); // 100.00
     }
 

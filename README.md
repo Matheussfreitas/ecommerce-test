@@ -362,6 +362,11 @@ Esta tabela documenta os **7 testes de decisão** implementados em `DecisoesTest
 - ✅ Todas as combinações complexas validadas
 - ✅ Todos os casos de robustez implementados
 
+**Link Para Planilha de Testes**
+```
+https://docs.google.com/spreadsheets/d/1LHSu6zSHigFnHe_FWHA3wogE4yCTUB_6zs2WrueIDbQ/edit?usp=sharing
+```
+
 ---
 
 ### 🔀 Grafo de Fluxo de Controle (CFG) do método `calcularCustoTotal`
